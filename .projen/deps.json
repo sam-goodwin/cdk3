@@ -6,6 +6,22 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/aws-kms",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/aws-secretsmanager",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/core",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/pipelines",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -106,29 +122,25 @@
       "type": "bundled"
     },
     {
+      "name": "@aws-cdk/aws-kms",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-secretsmanager",
+      "type": "peer"
+    },
+    {
       "name": "@aws-cdk/core",
-      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "@aws-cdk/pipelines",
-      "version": "^1.132.0",
       "type": "peer"
     },
     {
       "name": "constructs",
       "version": "^3.2.27",
       "type": "peer"
-    },
-    {
-      "name": "@aws-cdk/core",
-      "version": "^1.132.0",
-      "type": "runtime"
-    },
-    {
-      "name": "@aws-cdk/pipelines",
-      "version": "^1.132.0",
-      "type": "runtime"
     },
     {
       "name": "solc",
