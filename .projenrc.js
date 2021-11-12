@@ -1,18 +1,27 @@
-const { AwsCdkConstructLibrary } = require('projen');
+const { AwsCdkConstructLibrary } = require("projen");
 const project = new AwsCdkConstructLibrary({
-  author: 'Sam Goodwin',
-  authorAddress: 'sam@shapes.org',
-  cdkVersion: '1.95.2',
-  defaultReleaseBranch: 'main',
-  name: 'cdk3',
-  repositoryUrl: 'git@github.com:punchcard/cdk3.git',
+  name: "cdk3",
+  author: "Sam Goodwin",
+  authorAddress: "sam@shapes.org",
+  license: "Apache-2.0",
+  repositoryUrl: "git@github.com:punchcard/cdk3.git",
 
-  // cdkDependencies: undefined,      /* Which AWS CDK modules (those that start with "@aws-cdk/") does this library require when consumed? */
-  // cdkTestDependencies: undefined,  /* AWS CDK modules required for testing. */
-  // deps: [],                        /* Runtime dependencies of this module. */
-  // description: undefined,          /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],                     /* Build dependencies for this module. */
-  // packageName: undefined,          /* The "name" in package.json. */
-  // release: undefined,              /* Add release management to this project. */
+  // release
+  release: true,
+  releaseToNpm: true,
+  majorVersion: 0,
+  defaultReleaseBranch: "main",
+
+  // dependencies
+  cdkVersion: "1.132.0",
+  deps: ["solc"],
+  cdkDependencies: ["@aws-cdk/core", "@aws-cdk/pipelines"],
+
+  // linting and formatting
+  eslint: true,
+  eslintOptions: {
+    prettier: true,
+    dirs: ["src"],
+  },
 });
 project.synth();
