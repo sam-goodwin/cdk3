@@ -14,8 +14,9 @@ const project = new AwsCdkConstructLibrary({
 
   // dependencies
   cdkVersion: "1.132.0",
-  deps: ["solc"],
   cdkDependencies: ["@aws-cdk/core", "@aws-cdk/pipelines"],
+  deps: ["solc"],
+  bundledDeps: ["solc"],
 
   // linting and formatting
   eslint: true,

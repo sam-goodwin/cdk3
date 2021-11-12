@@ -69,7 +69,9 @@
     "@aws-cdk/pipelines": "^1.132.0",
     "solc": "^0.8.10"
   },
-  "bundledDependencies": [],
+  "bundledDependencies": [
+    "solc"
+  ],
   "keywords": [
     "cdk"
   ],

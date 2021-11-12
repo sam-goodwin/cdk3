@@ -102,6 +102,10 @@
       "type": "build"
     },
     {
+      "name": "solc",
+      "type": "bundled"
+    },
+    {
       "name": "@aws-cdk/core",
       "version": "^1.132.0",
       "type": "peer"
