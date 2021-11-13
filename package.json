@@ -5,7 +5,7 @@
     "url": "git@github.com:punchcard/cdk3.git"
   },
   "scripts": {
-    "build": "./scripts/bundle && npx projen build",
+    "build": "npx projen build",
     "bump": "npx projen bump",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
@@ -16,6 +16,7 @@
     "package": "npx projen package",
     "post-compile": "npx projen post-compile",
     "pre-compile": "npx projen pre-compile",
+    "prepare": "npx projen prepare",
     "publish:github": "npx projen publish:github",
     "publish:npm": "npx projen publish:npm",
     "release": "npx projen release",

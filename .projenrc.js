@@ -37,6 +37,10 @@ const project = new AwsCdkConstructLibrary({
     "constructs",
   ],
 
+  scripts: {
+    prepare: "",
+  },
+
   // linting and formatting
   eslint: true,
   eslintOptions: {
@@ -51,7 +55,11 @@ const project = new AwsCdkConstructLibrary({
   jest: true,
 });
 
+// bundle our lambdas with esbuild
+project.preCompileTask.exec("./scripts/bundle");
+
 new TextFile(project, "scripts/bundle", {
+  readonly: true,
   executable: true,
   lines: [
     `#!/usr/bin/env bash
@@ -65,9 +73,6 @@ function bundle() {
 bundle wallet-keygen`,
   ],
 });
-
-project.removeScript("build");
-project.setScript("build", "./scripts/bundle && npx projen build");
 
 new JsonFile(project, ".vscode/settings.json", {
   readonly: true,

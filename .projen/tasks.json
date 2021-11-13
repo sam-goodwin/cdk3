@@ -137,7 +137,15 @@
     },
     "pre-compile": {
       "name": "pre-compile",
-      "description": "Prepare the project for compilation"
+      "description": "Prepare the project for compilation",
+      "steps": [
+        {
+          "exec": "./scripts/bundle"
+        }
+      ]
+    },
+    "prepare": {
+      "name": "prepare"
     },
     "publish:github": {
       "name": "publish:github",
