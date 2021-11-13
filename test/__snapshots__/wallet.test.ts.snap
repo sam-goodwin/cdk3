@@ -3,16 +3,16 @@
 exports[`default wallet should provision an AWS Secret and KMS Encryption Key 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bArtifactHash16EA8C07": Object {
-      "Description": "Artifact hash for asset \\"8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5b\\"",
+    "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021ArtifactHash5EDBCE2D": Object {
+      "Description": "Artifact hash for asset \\"22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021\\"",
       "Type": "String",
     },
-    "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3Bucket4FD5CEB7": Object {
-      "Description": "S3 bucket for asset \\"8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5b\\"",
+    "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3BucketC914C110": Object {
+      "Description": "S3 bucket for asset \\"22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021\\"",
       "Type": "String",
     },
-    "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3VersionKey0203572F": Object {
-      "Description": "S3 key for asset version \\"8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5b\\"",
+    "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3VersionKey303EAA9B": Object {
+      "Description": "S3 key for asset version \\"22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021\\"",
       "Type": "String",
     },
   },
@@ -21,7 +21,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3Bucket4FD5CEB7",
+            "Ref": "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3BucketC914C110",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -34,7 +34,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3VersionKey0203572F",
+                          "Ref": "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3VersionKey303EAA9B",
                         },
                       ],
                     },
@@ -47,7 +47,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3VersionKey0203572F",
+                          "Ref": "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3VersionKey303EAA9B",
                         },
                       ],
                     },
