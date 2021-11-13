@@ -7,18 +7,36 @@
     },
     {
       "name": "@aws-cdk/aws-kms",
+      "version": "1.132.0",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda-nodejs",
+      "version": "1.132.0",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda",
+      "version": "1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/aws-secretsmanager",
+      "version": "1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/core",
+      "version": "1.132.0",
       "type": "build"
     },
     {
       "name": "@aws-cdk/pipelines",
+      "version": "1.132.0",
+      "type": "build"
+    },
+    {
+      "name": "@types/aws-lambda",
       "type": "build"
     },
     {
@@ -36,6 +54,15 @@
     },
     {
       "name": "@typescript-eslint/parser",
+      "type": "build"
+    },
+    {
+      "name": "aws-sdk",
+      "type": "build"
+    },
+    {
+      "name": "constructs",
+      "version": "3.2.27",
       "type": "build"
     },
     {
@@ -118,11 +145,23 @@
       "type": "build"
     },
     {
+      "name": "ethereumjs-wallet",
+      "type": "bundled"
+    },
+    {
       "name": "solc",
       "type": "bundled"
     },
     {
       "name": "@aws-cdk/aws-kms",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda-nodejs",
       "type": "peer"
     },
     {
@@ -141,6 +180,10 @@
       "name": "constructs",
       "version": "^3.2.27",
       "type": "peer"
+    },
+    {
+      "name": "ethereumjs-wallet",
+      "type": "runtime"
     },
     {
       "name": "solc",

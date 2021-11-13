@@ -62,6 +62,18 @@ AWS Secret securely storing the Private Key.
 
 ---
 
+##### `walletResourceHandler`<sup>Required</sup> <a name="cdk3.Wallet.property.walletResourceHandler"></a>
+
+```typescript
+public readonly walletResourceHandler: NodejsFunction;
+```
+
+- *Type:* [`@aws-cdk/aws-lambda-nodejs.NodejsFunction`](#@aws-cdk/aws-lambda-nodejs.NodejsFunction)
+
+Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
+
+---
+
 
 ## Structs <a name="Structs"></a>
 

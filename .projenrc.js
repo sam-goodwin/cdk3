@@ -15,19 +15,27 @@ const project = new AwsCdkConstructLibrary({
   // dependencies
   cdkVersion: "1.132.0",
   cdkAssert: true,
-  deps: ["solc"],
-  bundledDeps: ["solc"],
+  deps: ["solc", "ethereumjs-wallet"],
+  bundledDeps: ["solc", "ethereumjs-wallet"],
   devDeps: [
-    "@aws-cdk/aws-kms",
-    "@aws-cdk/aws-secretsmanager",
-    "@aws-cdk/core",
-    "@aws-cdk/pipelines",
+    "@types/aws-lambda",
+    "aws-sdk",
+    "@aws-cdk/aws-kms@1.132.0",
+    "@aws-cdk/aws-lambda-nodejs@1.132.0",
+    "@aws-cdk/aws-lambda@1.132.0",
+    "@aws-cdk/aws-secretsmanager@1.132.0",
+    "@aws-cdk/core@1.132.0",
+    "@aws-cdk/pipelines@1.132.0",
+    "constructs@3.2.27",
   ],
   peerDeps: [
     "@aws-cdk/aws-kms",
+    "@aws-cdk/aws-lambda-nodejs",
+    "@aws-cdk/aws-lambda",
     "@aws-cdk/aws-secretsmanager",
     "@aws-cdk/core",
     "@aws-cdk/pipelines",
+    "constructs",
   ],
 
   // linting and formatting
@@ -43,6 +51,7 @@ const project = new AwsCdkConstructLibrary({
   // testing
   jest: true,
 });
+
 new JsonFile(project, ".vscode/settings.json", {
   readonly: true,
   obj: {

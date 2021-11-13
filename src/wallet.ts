@@ -1,20 +1,12 @@
-import * as kms from "@aws-cdk/aws-kms";
-import * as secrets from "@aws-cdk/aws-secretsmanager";
-import * as cdk from "@aws-cdk/core";
+import * as path from "path";
+import * as fs from "fs";
 
-/**
- * Length of a seed phrase for a new Wallet.
- */
-export enum SeedPhraseSize {
-  /**
-   * 12 word long seed phrase.
-   */
-  TWELVE = 12,
-  /**
-   * 24 work long seed phrase.
-   */
-  TWENTY_FOUR = 24,
-}
+import * as cdk from "@aws-cdk/core";
+import * as kms from "@aws-cdk/aws-kms";
+import * as node from "@aws-cdk/aws-lambda-nodejs";
+import * as secrets from "@aws-cdk/aws-secretsmanager";
+
+import { EnvironmentKeys } from "./constants";
 
 export interface WalletProps {
   /**
@@ -23,12 +15,6 @@ export interface WalletProps {
    * @default generated physical name
    */
   readonly walletName?: string;
-  /**
-   * Number of words to use in the Seed Phrase.
-   *
-   * @default 24
-   */
-  readonly seedPhraseSize?: SeedPhraseSize;
   /**
    *
    * @default a new KMS encryption key is created for you.
@@ -52,6 +38,11 @@ export class Wallet extends cdk.Construct {
    */
   readonly encryptionKey: kms.IKey;
 
+  /**
+   * Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
+   */
+  readonly walletResourceHandler: node.NodejsFunction;
+
   constructor(scope: cdk.Construct, id: string, props: WalletProps = {}) {
     super(scope, id);
 
@@ -64,5 +55,32 @@ export class Wallet extends cdk.Construct {
     this.privateKey = new secrets.Secret(this, "PrivateKey", {
       encryptionKey: this.encryptionKey,
     });
+
+    // quick check to see if we're running
+    const isTsNode = fs
+      .statSync(path.join(__dirname, "wallet-keygen.ts"))
+      .isFile();
+
+    this.walletResourceHandler = new node.NodejsFunction(
+      this,
+      "WalletResourceHandler",
+      {
+        environment: {
+          [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
+        },
+        entry: path.join(__dirname, `wallet-keygen.${isTsNode ? "ts" : "js"}`),
+        handler: "handle",
+        memorySize: 512,
+        bundling: {
+          minify: true,
+          sourceMap: true,
+          externalModules: ["aws-sdk"],
+        },
+      }
+    );
+    // the Lambda only has encrypt access - it cannot decrypt the key.
+    this.encryptionKey.grantEncrypt(this.walletResourceHandler);
+    // it also cannot read the Wallet Secret.
+    this.privateKey.grantWrite(this.walletResourceHandler);
   }
 }
