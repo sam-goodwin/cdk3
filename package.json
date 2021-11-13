@@ -5,7 +5,7 @@
     "url": "git@github.com:punchcard/cdk3.git"
   },
   "scripts": {
-    "build": "npx projen build",
+    "build": "./scripts/bundle && npx projen build",
     "bump": "npx projen bump",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
@@ -41,13 +41,12 @@
     "@aws-cdk/aws-secretsmanager": "1.132.0",
     "@aws-cdk/core": "1.132.0",
     "@aws-cdk/pipelines": "1.132.0",
-    "@types/aws-lambda": "^8.10.85",
     "@types/jest": "^27.0.2",
     "@types/node": "^14.17.0",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
-    "aws-sdk": "^2.1028.0",
-    "constructs": "3.2.27",
+    "constructs": "3.3.161",
+    "esbuild": "^0.13.13",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-node": "^0.3.6",
@@ -78,10 +77,14 @@
     "constructs": "^3.2.27"
   },
   "dependencies": {
+    "@types/aws-lambda": "^8.10.85",
+    "aws-sdk": "^2.1028.0",
     "ethereumjs-wallet": "^1.0.2",
     "solc": "^0.8.10"
   },
   "bundledDependencies": [
+    "@types/aws-lambda",
+    "aws-sdk",
     "ethereumjs-wallet",
     "solc"
   ],

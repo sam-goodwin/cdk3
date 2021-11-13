@@ -1,5 +1,5 @@
-import * as url from "url";
 import * as https from "https";
+import * as url from "url";
 
 import {
   CloudFormationCustomResourceEventCommon,

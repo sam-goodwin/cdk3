@@ -1,4 +1,4 @@
-const { AwsCdkConstructLibrary, JsonFile } = require("projen");
+const { AwsCdkConstructLibrary, JsonFile, TextFile } = require("projen");
 const project = new AwsCdkConstructLibrary({
   name: "cdk3",
   author: "Sam Goodwin",
@@ -15,18 +15,17 @@ const project = new AwsCdkConstructLibrary({
   // dependencies
   cdkVersion: "1.132.0",
   cdkAssert: true,
-  deps: ["solc", "ethereumjs-wallet"],
-  bundledDeps: ["solc", "ethereumjs-wallet"],
+  bundledDeps: ["solc", "ethereumjs-wallet", "@types/aws-lambda", "aws-sdk"],
+  deps: ["solc", "ethereumjs-wallet", "@types/aws-lambda", "aws-sdk"],
   devDeps: [
-    "@types/aws-lambda",
-    "aws-sdk",
     "@aws-cdk/aws-kms@1.132.0",
     "@aws-cdk/aws-lambda-nodejs@1.132.0",
     "@aws-cdk/aws-lambda@1.132.0",
     "@aws-cdk/aws-secretsmanager@1.132.0",
     "@aws-cdk/core@1.132.0",
     "@aws-cdk/pipelines@1.132.0",
-    "constructs@3.2.27",
+    "constructs@3.3.161",
+    "esbuild",
   ],
   peerDeps: [
     "@aws-cdk/aws-kms",
@@ -51,6 +50,24 @@ const project = new AwsCdkConstructLibrary({
   // testing
   jest: true,
 });
+
+new TextFile(project, "scripts/bundle", {
+  executable: true,
+  lines: [
+    `#!/usr/bin/env bash
+
+function bundle() {
+  name=$1
+  mkdir -p lib/$name
+  esbuild src/$name.ts --bundle --platform=node --outfile=lib/$name/index.js --external:aws-sdk
+}
+
+bundle wallet-keygen`,
+  ],
+});
+
+project.removeScript("build");
+project.setScript("build", "./scripts/bundle && npx projen build");
 
 new JsonFile(project, ".vscode/settings.json", {
   readonly: true,

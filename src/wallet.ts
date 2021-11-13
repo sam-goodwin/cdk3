@@ -1,10 +1,9 @@
 import * as path from "path";
-import * as fs from "fs";
 
-import * as cdk from "@aws-cdk/core";
 import * as kms from "@aws-cdk/aws-kms";
-import * as node from "@aws-cdk/aws-lambda-nodejs";
+import * as lambda from "@aws-cdk/aws-lambda";
 import * as secrets from "@aws-cdk/aws-secretsmanager";
+import * as cdk from "@aws-cdk/core";
 
 import { EnvironmentKeys } from "./constants";
 
@@ -12,12 +11,12 @@ export interface WalletProps {
   /**
    * Name of the Wallet.
    *
-   * @default generated physical name
+   * @default - generated physical name
    */
   readonly walletName?: string;
   /**
    *
-   * @default a new KMS encryption key is created for you.
+   * @default - a new KMS encryption key is created for you.
    */
   readonly encryptionKey?: kms.IKey;
 }
@@ -41,7 +40,7 @@ export class Wallet extends cdk.Construct {
   /**
    * Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
    */
-  readonly walletResourceHandler: node.NodejsFunction;
+  readonly walletResourceHandler: lambda.Function;
 
   constructor(scope: cdk.Construct, id: string, props: WalletProps = {}) {
     super(scope, id);
@@ -50,31 +49,28 @@ export class Wallet extends cdk.Construct {
       props.encryptionKey ??
       new kms.Key(this, "EncryptionKey", {
         enableKeyRotation: true,
+        alias: props.walletName ? `${props.walletName}-key` : undefined,
+        description: `Encryption Key securing the ${
+          props.walletName ? `'${props.walletName}' Wallet` : "Wallet"
+        }.`,
       });
 
     this.privateKey = new secrets.Secret(this, "PrivateKey", {
       encryptionKey: this.encryptionKey,
     });
 
-    // quick check to see if we're running
-    const isTsNode = fs
-      .statSync(path.join(__dirname, "wallet-keygen.ts"))
-      .isFile();
-
-    this.walletResourceHandler = new node.NodejsFunction(
+    this.walletResourceHandler = new lambda.Function(
       this,
       "WalletResourceHandler",
       {
+        runtime: lambda.Runtime.NODEJS_14_X,
+        code: lambda.Code.fromAsset(
+          path.join(__dirname, "..", "lib", "wallet-keygen")
+        ),
+        handler: "index.handle",
+        memorySize: 512,
         environment: {
           [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
-        },
-        entry: path.join(__dirname, `wallet-keygen.${isTsNode ? "ts" : "js"}`),
-        handler: "handle",
-        memorySize: 512,
-        bundling: {
-          minify: true,
-          sourceMap: true,
-          externalModules: ["aws-sdk"],
         },
       }
     );

@@ -2,49 +2,35 @@
 
 Construct library for the continuous delivery of web3 dapps in AWS. Includes Constructs for CI/CD pipeline, secure storage of a Wallet's private keys, and web hosting on CloudFront for a cryptocurrency's brand.
 
+### Wallet
 
-###
+The `Wallet` Construct generates an Ethereum compatible wallet and stores it as an encrypted keystore in an AWS Secret encrypted with an AWS KMS Key.
+
+To create a new wallet:
 
 ```ts
-import path from "path";
-import * as cdk from "@aws-cdk/core";
-import * as cdk3 from "cdk3";
-import * as pipeline from "@aws-cdk/pipelines";
+const wallet = new cdk3.Wallet(this, "Wallet");
+```
 
-export class MyCoinStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props: cdk.StackProps) {
-    super(scope, id, props);
+To access the public key and address Resource Properties:
 
-    // creates a wallet with a private key stored in AWS Secrets Manager Secret.
-    this.wallet = new cdk3.Wallet(this, "Wallet", {
-      seedPhraseSize: 12 // or 24 
-    });
+```ts
+wallet.publicKey;
+wallet.address;
+```
 
-    // build and deploy a Contract to the Binance Smart Chain (BSC).
-    // this will compile the contract with `solc` and deploy to the Binance Smart Chain
-    this.contract = new cdk3.SolidityContract(this, "BSCContract", {
-      code: path.join(__dirname, "..", "contracts"),
-      contract: "MyContractName",
-    });
+By default, the KMS Key and AWS Secret Resources have generated names. To help with organization, you can set the `walletName` so that those Resources are named according to the convention, `${walletName}-<prefix>`. For example: `my-wallet-key` and `my-wallet-secret`.
 
-    this.pipeline = new pipeline.Pipeline(this, "Pipeline", {
-       
-    });
+```ts
+new cdk3.Wallet(this, "Wallet", {
+  walletName: "my-wallet",
+});
+```
 
-    this.pipeline.addStage(new cdk.ContractDeployment(this, "BSCDeploy", {
-      chain: cdk3.Chain.BinanceSmartChain,
-      contract: this.contract,
-    }))
-  }
-}
+To use an existing KMS Key to encrypt the AWS Secret (instead of generating a new one), set the `encryptionKey` property.
 
-export class MyDapp extends pipeline.Stage {
-  constructor(scope: Construct, id: string, props?: pipeline.StageProps) {
-    super(scope, id, props);
-
-    
-  }
-}
-
-
+```ts
+new cdk3.Wallet(this, "Wallet", {
+  encryptionKey: myKey,
+});
 ```
