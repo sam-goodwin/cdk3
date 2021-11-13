@@ -13,7 +13,7 @@ const project = new AwsCdkConstructLibrary({
   defaultReleaseBranch: "main",
 
   // for cases when we deplyo a CDK app within this project
-  gitignore: ["cdk.out"],
+  gitignore: ["cdk.out", "src/app.ts"],
 
   // dependencies
   cdkVersion: "1.132.0",
