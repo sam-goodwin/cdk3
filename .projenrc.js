@@ -24,7 +24,7 @@ const project = new AwsCdkConstructLibrary({
     "@aws-cdk/aws-secretsmanager@1.132.0",
     "@aws-cdk/core@1.132.0",
     "@aws-cdk/pipelines@1.132.0",
-    "constructs@3.3.161",
+    "constructs",
     "esbuild",
   ],
   peerDeps: [

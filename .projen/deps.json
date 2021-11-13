@@ -54,7 +54,6 @@
     },
     {
       "name": "constructs",
-      "version": "3.3.161",
       "type": "build"
     },
     {
