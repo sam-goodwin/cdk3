@@ -4,9 +4,36 @@
 
 ### Wallet <a name="cdk3.Wallet"></a>
 
-Creates a new Wallet with its Private Key stored in AWS Secrets Manager.
+The `Wallet` Construct generates an Ethereum compatible wallet and stores it as an encrypted keystore in an AWS Secret encrypted with an AWS KMS Key.
 
-Use this Construct to deploy Smart Contracts via an AWS Code Pipeline.
+To create a new wallet:
+
+```ts
+const wallet = new cdk3.Wallet(this, "Wallet");
+```
+
+To access the public key and address Resource Properties:
+
+```ts
+wallet.publicKey;
+wallet.address;
+```
+
+By default, the KMS Key and AWS Secret Resources have generated names. To help with organization, you can set the `walletName` so that those Resources are named according to the convention, `${walletName}-<prefix>`. For example: `my-wallet-key` and `my-wallet-secret`.
+
+```ts
+new cdk3.Wallet(this, "Wallet", {
+   walletName: "my-wallet",
+});
+```
+
+To use an existing KMS Key to encrypt the AWS Secret (instead of generating a new one), set the `encryptionKey` property.
+
+```ts
+new cdk3.Wallet(this, "Wallet", {
+   encryptionKey: myKey,
+});
+```
 
 #### Initializers <a name="cdk3.Wallet.Initializer"></a>
 
@@ -70,6 +97,18 @@ KMS Encryption Key used to encrypt the Private Key.
 
 ---
 
+##### `keyGenerator`<sup>Required</sup> <a name="cdk3.Wallet.property.keyGenerator"></a>
+
+```typescript
+public readonly keyGenerator: SingletonFunction;
+```
+
+- *Type:* [`@aws-cdk/aws-lambda.SingletonFunction`](#@aws-cdk/aws-lambda.SingletonFunction)
+
+Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
+
+---
+
 ##### `privateKey`<sup>Required</sup> <a name="cdk3.Wallet.property.privateKey"></a>
 
 ```typescript
@@ -92,15 +131,13 @@ public readonly publicKey: string;
 
 ---
 
-##### `walletResourceHandler`<sup>Required</sup> <a name="cdk3.Wallet.property.walletResourceHandler"></a>
+##### `walletName`<sup>Required</sup> <a name="cdk3.Wallet.property.walletName"></a>
 
 ```typescript
-public readonly walletResourceHandler: SingletonFunction;
+public readonly walletName: string;
 ```
 
-- *Type:* [`@aws-cdk/aws-lambda.SingletonFunction`](#@aws-cdk/aws-lambda.SingletonFunction)
-
-Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
+- *Type:* `string`
 
 ---
 

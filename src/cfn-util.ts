@@ -48,6 +48,7 @@ export async function callbackToCloudFormation(
     ...event,
     ...body,
   });
+  console.log(payload);
   // TODO: utilize url.URL
   const parsedUrl = url.parse(event.ResponseURL);
   return new Promise<void>((resolve, reject) => {

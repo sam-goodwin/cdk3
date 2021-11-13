@@ -12,8 +12,8 @@ const project = new AwsCdkConstructLibrary({
   majorVersion: 0,
   defaultReleaseBranch: "main",
 
-  // for cases when we deplyo a CDK app within this project
-  gitignore: ["cdk.out", "src/app.ts"],
+  // for cases when we deploy a CDK app within this project
+  gitignore: ["cdk.out"],
 
   // dependencies
   cdkVersion: "1.132.0",
@@ -29,6 +29,7 @@ const project = new AwsCdkConstructLibrary({
     "@aws-cdk/pipelines@1.132.0",
     "constructs",
     "esbuild",
+    "ts-node",
   ],
   peerDeps: [
     "@aws-cdk/aws-kms",
