@@ -3,20 +3,159 @@
 exports[`default wallet should provision an AWS Secret and KMS Encryption Key 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bArtifactHash16EA8C07": Object {
-      "Description": "Artifact hash for asset \\"8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5b\\"",
+    "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021ArtifactHash5EDBCE2D": Object {
+      "Description": "Artifact hash for asset \\"22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021\\"",
       "Type": "String",
     },
-    "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3Bucket4FD5CEB7": Object {
-      "Description": "S3 bucket for asset \\"8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5b\\"",
+    "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3BucketC914C110": Object {
+      "Description": "S3 bucket for asset \\"22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021\\"",
       "Type": "String",
     },
-    "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3VersionKey0203572F": Object {
-      "Description": "S3 key for asset version \\"8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5b\\"",
+    "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3VersionKey303EAA9B": Object {
+      "Description": "S3 key for asset version \\"22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
+    "SingletonLambdaethereumwalletresourceD38BB645": Object {
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3BucketC914C110",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3VersionKey303EAA9B",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters22cf2f887a1c4a1b67d7b9aaa0217ea693e23af673b5323dc2006266cc53f021S3VersionKey303EAA9B",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handle",
+        "MemorySize": 512,
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "SingletonLambdaethereumwalletresourceServiceRole9E9133C7",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "SingletonLambdaethereumwalletresourceServiceRole9E9133C7": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SingletonLambdaethereumwalletresourceServiceRoleDefaultPolicyFAE1E665": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "WalletEncryptionKey8455325D",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "secretsmanager:PutSecretValue",
+                "secretsmanager:UpdateSecret",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "WalletPrivateKey1C295680",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SingletonLambdaethereumwalletresourceServiceRoleDefaultPolicyFAE1E665",
+        "Roles": Array [
+          Object {
+            "Ref": "SingletonLambdaethereumwalletresourceServiceRole9E9133C7",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "Wallet1C6771ED": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "SecretArn": Object {
+          "Ref": "WalletPrivateKey1C295680",
+        },
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "SingletonLambdaethereumwalletresourceD38BB645",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::Wallet",
+      "UpdateReplacePolicy": "Delete",
+    },
     "WalletEncryptionKey8455325D": Object {
       "DeletionPolicy": "Retain",
       "Properties": Object {
@@ -159,7 +298,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "WalletWalletResourceHandlerServiceRole65EB541B",
+                    "SingletonLambdaethereumwalletresourceServiceRole9E9133C7",
                     "Arn",
                   ],
                 },
@@ -192,7 +331,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "WalletWalletResourceHandlerServiceRole65EB541B",
+                    "SingletonLambdaethereumwalletresourceServiceRole9E9133C7",
                     "Arn",
                   ],
                 },
@@ -219,136 +358,6 @@ Object {
       },
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",
-    },
-    "WalletWalletResourceHandler2D2301E3": Object {
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3Bucket4FD5CEB7",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3VersionKey0203572F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters8857b364800a1b6cd0dbcde01dbb4440826030bf852a0d2669f521e8363e4f5bS3VersionKey0203572F",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Environment": Object {
-          "Variables": Object {
-            "SecretArn": Object {
-              "Ref": "WalletPrivateKey1C295680",
-            },
-          },
-        },
-        "Handler": "index.handle",
-        "MemorySize": 512,
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "WalletWalletResourceHandlerServiceRole65EB541B",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs14.x",
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "WalletWalletResourceHandlerServiceRole65EB541B": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "WalletWalletResourceHandlerServiceRoleDefaultPolicyB0C4B71A": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "WalletEncryptionKey8455325D",
-                  "Arn",
-                ],
-              },
-            },
-            Object {
-              "Action": Array [
-                "secretsmanager:PutSecretValue",
-                "secretsmanager:UpdateSecret",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Ref": "WalletPrivateKey1C295680",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "WalletWalletResourceHandlerServiceRoleDefaultPolicyB0C4B71A",
-        "Roles": Array [
-          Object {
-            "Ref": "WalletWalletResourceHandlerServiceRole65EB541B",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
     },
   },
 }
