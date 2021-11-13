@@ -40,7 +40,11 @@ export class Wallet extends cdk.Construct {
   /**
    * Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
    */
-  readonly walletResourceHandler: lambda.Function;
+  readonly walletResourceHandler: lambda.SingletonFunction;
+
+  readonly publicKey: string;
+  readonly address: string;
+  readonly checksumAddress: string;
 
   constructor(scope: cdk.Construct, id: string, props: WalletProps = {}) {
     super(scope, id);
@@ -59,24 +63,33 @@ export class Wallet extends cdk.Construct {
       encryptionKey: this.encryptionKey,
     });
 
-    this.walletResourceHandler = new lambda.Function(
+    this.walletResourceHandler = new lambda.SingletonFunction(
       this,
       "WalletResourceHandler",
       {
+        uuid: "ethereum-wallet-resource",
         runtime: lambda.Runtime.NODEJS_14_X,
         code: lambda.Code.fromAsset(
           path.join(__dirname, "..", "lib", "wallet-keygen")
         ),
         handler: "index.handle",
         memorySize: 512,
-        environment: {
-          [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
-        },
       }
     );
     // the Lambda only has encrypt access - it cannot decrypt the key.
     this.encryptionKey.grantEncrypt(this.walletResourceHandler);
     // it also cannot read the Wallet Secret.
     this.privateKey.grantWrite(this.walletResourceHandler);
+
+    const resource = new cdk.CustomResource(this, "Wallet", {
+      resourceType: "Custom::Wallet",
+      serviceToken: this.walletResourceHandler.functionArn,
+      properties: {
+        [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
+      },
+    });
+    this.publicKey = resource.getAttString("PublicKey");
+    this.address = resource.getAttString("Address");
+    this.checksumAddress = resource.getAttString("ChecksumAddress");
   }
 }

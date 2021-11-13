@@ -14,8 +14,8 @@ const secrets = new AWS.SecretsManager();
  * On the Create event, a seed phrase is generated and uploaded to AWS Secrets Manager.
  */
 export async function handle(event: CloudFormationCustomResourceEvent) {
-  const secretArn = getString(event, EnvironmentKeys.WalletSecretArn);
   try {
+    const secretArn = getString(event, EnvironmentKeys.WalletSecretArn);
     if (event.RequestType === "Create") {
       // generate a new Wallet address
       const wallet = Wallet.default.generate();

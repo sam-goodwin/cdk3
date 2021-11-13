@@ -144,9 +144,6 @@
         }
       ]
     },
-    "prepare": {
-      "name": "prepare"
-    },
     "publish:github": {
       "name": "publish:github",
       "description": "Publish this package to GitHub Releases",

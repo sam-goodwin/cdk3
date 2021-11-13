@@ -38,6 +38,26 @@ new Wallet(scope: Construct, id: string, props?: WalletProps)
 
 #### Properties <a name="Properties"></a>
 
+##### `address`<sup>Required</sup> <a name="cdk3.Wallet.property.address"></a>
+
+```typescript
+public readonly address: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `checksumAddress`<sup>Required</sup> <a name="cdk3.Wallet.property.checksumAddress"></a>
+
+```typescript
+public readonly checksumAddress: string;
+```
+
+- *Type:* `string`
+
+---
+
 ##### `encryptionKey`<sup>Required</sup> <a name="cdk3.Wallet.property.encryptionKey"></a>
 
 ```typescript
@@ -62,13 +82,23 @@ AWS Secret securely storing the Private Key.
 
 ---
 
+##### `publicKey`<sup>Required</sup> <a name="cdk3.Wallet.property.publicKey"></a>
+
+```typescript
+public readonly publicKey: string;
+```
+
+- *Type:* `string`
+
+---
+
 ##### `walletResourceHandler`<sup>Required</sup> <a name="cdk3.Wallet.property.walletResourceHandler"></a>
 
 ```typescript
-public readonly walletResourceHandler: Function;
+public readonly walletResourceHandler: SingletonFunction;
 ```
 
-- *Type:* [`@aws-cdk/aws-lambda.Function`](#@aws-cdk/aws-lambda.Function)
+- *Type:* [`@aws-cdk/aws-lambda.SingletonFunction`](#@aws-cdk/aws-lambda.SingletonFunction)
 
 Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
 

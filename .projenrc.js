@@ -12,6 +12,9 @@ const project = new AwsCdkConstructLibrary({
   majorVersion: 0,
   defaultReleaseBranch: "main",
 
+  // for cases when we deplyo a CDK app within this project
+  gitignore: ["cdk.out"],
+
   // dependencies
   cdkVersion: "1.132.0",
   cdkAssert: true,
@@ -36,10 +39,6 @@ const project = new AwsCdkConstructLibrary({
     "@aws-cdk/pipelines",
     "constructs",
   ],
-
-  scripts: {
-    prepare: "",
-  },
 
   // linting and formatting
   eslint: true,
