@@ -22,9 +22,36 @@ export interface WalletProps {
 }
 
 /**
- * Creates a new Wallet with its Private Key stored in AWS Secrets Manager.
+ * The `Wallet` Construct generates an Ethereum compatible wallet and stores it as an encrypted keystore in an AWS Secret encrypted with an AWS KMS Key.
  *
- * Use this Construct to deploy Smart Contracts via an AWS Code Pipeline.
+ * To create a new wallet:
+ *
+ * ```ts
+ * const wallet = new cdk3.Wallet(this, "Wallet");
+ * ```
+ *
+ * To access the public key and address Resource Properties:
+ *
+ * ```ts
+ * wallet.publicKey;
+ * wallet.address;
+ * ```
+ *
+ * By default, the KMS Key and AWS Secret Resources have generated names. To help with organization, you can set the `walletName` so that those Resources are named according to the convention, `${walletName}-<prefix>`. For example: `my-wallet-key` and `my-wallet-secret`.
+ *
+ * ```ts
+ * new cdk3.Wallet(this, "Wallet", {
+ *   walletName: "my-wallet",
+ * });
+ * ```
+ *
+ * To use an existing KMS Key to encrypt the AWS Secret (instead of generating a new one), set the `encryptionKey` property.
+ *
+ * ```ts
+ * new cdk3.Wallet(this, "Wallet", {
+ *   encryptionKey: myKey,
+ * });
+ * ```
  */
 export class Wallet extends cdk.Construct {
   /**
@@ -40,11 +67,12 @@ export class Wallet extends cdk.Construct {
   /**
    * Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
    */
-  readonly walletResourceHandler: lambda.SingletonFunction;
+  readonly keyGenerator: lambda.SingletonFunction;
 
   readonly publicKey: string;
   readonly address: string;
   readonly checksumAddress: string;
+  readonly walletName: string;
 
   constructor(scope: cdk.Construct, id: string, props: WalletProps = {}) {
     super(scope, id);
@@ -61,35 +89,37 @@ export class Wallet extends cdk.Construct {
 
     this.privateKey = new secrets.Secret(this, "PrivateKey", {
       encryptionKey: this.encryptionKey,
+      secretName: props.walletName ? `${props.walletName}-secret` : undefined,
     });
 
-    this.walletResourceHandler = new lambda.SingletonFunction(
-      this,
-      "WalletResourceHandler",
-      {
-        uuid: "ethereum-wallet-resource",
-        runtime: lambda.Runtime.NODEJS_14_X,
-        code: lambda.Code.fromAsset(
-          path.join(__dirname, "..", "lib", "wallet-keygen")
-        ),
-        handler: "index.handle",
-        memorySize: 512,
-      }
-    );
+    this.keyGenerator = new lambda.SingletonFunction(this, "KeyGenereator", {
+      uuid: "ethereum-wallet-keygenerator",
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset(
+        path.join(__dirname, "..", "lib", "wallet-keygen")
+      ),
+      handler: "index.handle",
+      memorySize: 512,
+      timeout: cdk.Duration.minutes(1),
+    });
     // the Lambda only has encrypt access - it cannot decrypt the key.
-    this.encryptionKey.grantEncrypt(this.walletResourceHandler);
+    this.encryptionKey.grantEncrypt(this.keyGenerator);
     // it also cannot read the Wallet Secret.
-    this.privateKey.grantWrite(this.walletResourceHandler);
+    this.privateKey.grantWrite(this.keyGenerator);
 
     const resource = new cdk.CustomResource(this, "Wallet", {
       resourceType: "Custom::Wallet",
-      serviceToken: this.walletResourceHandler.functionArn,
+      serviceToken: this.keyGenerator.functionArn,
       properties: {
+        [EnvironmentKeys.WalletName]: props.walletName,
         [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
       },
     });
-    this.publicKey = resource.getAttString("PublicKey");
-    this.address = resource.getAttString("Address");
-    this.checksumAddress = resource.getAttString("ChecksumAddress");
+    this.walletName = resource.getAttString(EnvironmentKeys.WalletName);
+    this.publicKey = resource.getAttString(EnvironmentKeys.PublicKey);
+    this.address = resource.getAttString(EnvironmentKeys.Address);
+    this.checksumAddress = resource.getAttString(
+      EnvironmentKeys.ChecksumAddress
+    );
   }
 }

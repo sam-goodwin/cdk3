@@ -2,7 +2,11 @@ import type { CloudFormationCustomResourceEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
 import * as Wallet from "ethereumjs-wallet";
 
-import { callbackToCloudFormation, getString } from "./cfn-util";
+import {
+  callbackToCloudFormation,
+  getString,
+  getStringOrUndefined,
+} from "./cfn-util";
 import { EnvironmentKeys } from "./constants";
 
 const secrets = new AWS.SecretsManager();
@@ -14,8 +18,16 @@ const secrets = new AWS.SecretsManager();
  * On the Create event, a seed phrase is generated and uploaded to AWS Secrets Manager.
  */
 export async function handle(event: CloudFormationCustomResourceEvent) {
+  console.log(event);
   try {
-    const secretArn = getString(event, EnvironmentKeys.WalletSecretArn);
+    const secretArn = getString(
+      event.ResourceProperties,
+      EnvironmentKeys.WalletSecretArn
+    );
+    const walletName = getStringOrUndefined(
+      event.ResourceProperties,
+      EnvironmentKeys.WalletName
+    );
     if (event.RequestType === "Create") {
       // generate a new Wallet address
       const wallet = Wallet.default.generate();
@@ -24,12 +36,10 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
       await secrets
         .updateSecret({
           SecretId: secretArn,
-          Description: "Etheruem Wallet Private Key and Seed Phrase",
           SecretString: await wallet.toV3String("password"),
+          Description: "Etheruem Wallet Private Key and Seed Phrase",
         })
         .promise();
-
-      wallet.getAddress;
 
       await callbackToCloudFormation(event, {
         Status: "SUCCESS",
@@ -37,9 +47,10 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
         PhysicalResourceId: secretArn,
         Data: {
           // export public information as a Resource propert
-          PublicKey: wallet.getPublicKeyString(),
-          Address: wallet.getAddressString(),
-          ChecksumAddress: wallet.getChecksumAddressString(),
+          [EnvironmentKeys.Address]: wallet.getAddressString(),
+          [EnvironmentKeys.ChecksumAddress]: wallet.getChecksumAddressString(),
+          [EnvironmentKeys.PublicKey]: wallet.getPublicKeyString(),
+          [EnvironmentKeys.WalletName]: walletName,
         },
       });
     } else {
