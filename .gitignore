@@ -47,6 +47,7 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+!/scripts/bundle
 !/.vscode/settings.json
 !/.github/workflows/release.yml
 !/.github/workflows/upgrade-main.yml

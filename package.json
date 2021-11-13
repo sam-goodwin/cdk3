@@ -16,6 +16,7 @@
     "package": "npx projen package",
     "post-compile": "npx projen post-compile",
     "pre-compile": "npx projen pre-compile",
+    "prepare": "npx projen prepare",
     "publish:github": "npx projen publish:github",
     "publish:npm": "npx projen publish:npm",
     "release": "npx projen release",
@@ -35,14 +36,18 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.132.0",
-    "@aws-cdk/aws-kms": "^1.132.0",
-    "@aws-cdk/aws-secretsmanager": "^1.132.0",
-    "@aws-cdk/core": "^1.132.0",
-    "@aws-cdk/pipelines": "^1.132.0",
+    "@aws-cdk/aws-kms": "1.132.0",
+    "@aws-cdk/aws-lambda": "1.132.0",
+    "@aws-cdk/aws-lambda-nodejs": "1.132.0",
+    "@aws-cdk/aws-secretsmanager": "1.132.0",
+    "@aws-cdk/core": "1.132.0",
+    "@aws-cdk/pipelines": "1.132.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^14.17.0",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
+    "constructs": "3.3.161",
+    "esbuild": "^0.13.13",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-node": "^0.3.6",
@@ -65,15 +70,23 @@
   },
   "peerDependencies": {
     "@aws-cdk/aws-kms": "^1.132.0",
+    "@aws-cdk/aws-lambda": "^1.132.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.132.0",
     "@aws-cdk/aws-secretsmanager": "^1.132.0",
     "@aws-cdk/core": "^1.132.0",
     "@aws-cdk/pipelines": "^1.132.0",
     "constructs": "^3.2.27"
   },
   "dependencies": {
+    "@types/aws-lambda": "^8.10.85",
+    "aws-sdk": "^2.1028.0",
+    "ethereumjs-wallet": "^1.0.2",
     "solc": "^0.8.10"
   },
   "bundledDependencies": [
+    "@types/aws-lambda",
+    "aws-sdk",
+    "ethereumjs-wallet",
     "solc"
   ],
   "keywords": [

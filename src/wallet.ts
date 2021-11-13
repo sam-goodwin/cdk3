@@ -1,37 +1,22 @@
+import * as path from "path";
+
 import * as kms from "@aws-cdk/aws-kms";
+import * as lambda from "@aws-cdk/aws-lambda";
 import * as secrets from "@aws-cdk/aws-secretsmanager";
 import * as cdk from "@aws-cdk/core";
 
-/**
- * Length of a seed phrase for a new Wallet.
- */
-export enum SeedPhraseSize {
-  /**
-   * 12 word long seed phrase.
-   */
-  TWELVE = 12,
-  /**
-   * 24 work long seed phrase.
-   */
-  TWENTY_FOUR = 24,
-}
+import { EnvironmentKeys } from "./constants";
 
 export interface WalletProps {
   /**
    * Name of the Wallet.
    *
-   * @default generated physical name
+   * @default - generated physical name
    */
   readonly walletName?: string;
   /**
-   * Number of words to use in the Seed Phrase.
    *
-   * @default 24
-   */
-  readonly seedPhraseSize?: SeedPhraseSize;
-  /**
-   *
-   * @default a new KMS encryption key is created for you.
+   * @default - a new KMS encryption key is created for you.
    */
   readonly encryptionKey?: kms.IKey;
 }
@@ -52,6 +37,11 @@ export class Wallet extends cdk.Construct {
    */
   readonly encryptionKey: kms.IKey;
 
+  /**
+   * Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
+   */
+  readonly walletResourceHandler: lambda.Function;
+
   constructor(scope: cdk.Construct, id: string, props: WalletProps = {}) {
     super(scope, id);
 
@@ -59,10 +49,34 @@ export class Wallet extends cdk.Construct {
       props.encryptionKey ??
       new kms.Key(this, "EncryptionKey", {
         enableKeyRotation: true,
+        alias: props.walletName ? `${props.walletName}-key` : undefined,
+        description: `Encryption Key securing the ${
+          props.walletName ? `'${props.walletName}' Wallet` : "Wallet"
+        }.`,
       });
 
     this.privateKey = new secrets.Secret(this, "PrivateKey", {
       encryptionKey: this.encryptionKey,
     });
+
+    this.walletResourceHandler = new lambda.Function(
+      this,
+      "WalletResourceHandler",
+      {
+        runtime: lambda.Runtime.NODEJS_14_X,
+        code: lambda.Code.fromAsset(
+          path.join(__dirname, "..", "lib", "wallet-keygen")
+        ),
+        handler: "index.handle",
+        memorySize: 512,
+        environment: {
+          [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
+        },
+      }
+    );
+    // the Lambda only has encrypt access - it cannot decrypt the key.
+    this.encryptionKey.grantEncrypt(this.walletResourceHandler);
+    // it also cannot read the Wallet Secret.
+    this.privateKey.grantWrite(this.walletResourceHandler);
   }
 }

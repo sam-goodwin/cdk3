@@ -62,6 +62,18 @@ AWS Secret securely storing the Private Key.
 
 ---
 
+##### `walletResourceHandler`<sup>Required</sup> <a name="cdk3.Wallet.property.walletResourceHandler"></a>
+
+```typescript
+public readonly walletResourceHandler: Function;
+```
+
+- *Type:* [`@aws-cdk/aws-lambda.Function`](#@aws-cdk/aws-lambda.Function)
+
+Lambda Function which is invoked by CloudFormation during the CRUD lifecycle.
+
+---
+
 
 ## Structs <a name="Structs"></a>
 
@@ -86,19 +98,6 @@ public readonly encryptionKey: IKey;
 
 ---
 
-##### `seedPhraseSize`<sup>Optional</sup> <a name="cdk3.WalletProps.property.seedPhraseSize"></a>
-
-```typescript
-public readonly seedPhraseSize: SeedPhraseSize;
-```
-
-- *Type:* [`cdk3.SeedPhraseSize`](#cdk3.SeedPhraseSize)
-- *Default:* 24
-
-Number of words to use in the Seed Phrase.
-
----
-
 ##### `walletName`<sup>Optional</sup> <a name="cdk3.WalletProps.property.walletName"></a>
 
 ```typescript
@@ -113,23 +112,4 @@ Name of the Wallet.
 ---
 
 
-
-## Enums <a name="Enums"></a>
-
-### SeedPhraseSize <a name="SeedPhraseSize"></a>
-
-Length of a seed phrase for a new Wallet.
-
-#### `TWELVE` <a name="cdk3.SeedPhraseSize.TWELVE"></a>
-
-12 word long seed phrase.
-
----
-
-
-#### `TWENTY_FOUR` <a name="cdk3.SeedPhraseSize.TWENTY_FOUR"></a>
-
-24 work long seed phrase.
-
----
 

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function bundle() {
+  name=$1
+  mkdir -p lib/$name
+  esbuild src/$name.ts --bundle --platform=node --outfile=lib/$name/index.js --external:aws-sdk
+}
+
+bundle wallet-keygen
