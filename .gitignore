@@ -30,6 +30,7 @@ jspm_packages/
 .yarn-integrity
 .cache
 cdk.out
+cdk3.out
 !/.projenrc.js
 /test-reports/
 junit.xml
@@ -49,6 +50,7 @@ junit.xml
 tsconfig.json
 !/API.md
 !/scripts/bundle
+!/.vscode/launch.json
 !/.vscode/settings.json
 !/.github/workflows/release.yml
 !/.github/workflows/upgrade-main.yml

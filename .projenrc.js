@@ -13,29 +13,49 @@ const project = new AwsCdkConstructLibrary({
   defaultReleaseBranch: "main",
 
   // for cases when we deploy a CDK app within this project
-  gitignore: ["cdk.out"],
+  gitignore: ["cdk.out", "cdk3.out"],
 
   // dependencies
   cdkVersion: "1.132.0",
   cdkAssert: true,
-  bundledDeps: ["solc", "ethereumjs-wallet", "@types/aws-lambda", "aws-sdk"],
-  deps: ["solc", "ethereumjs-wallet", "@types/aws-lambda", "aws-sdk"],
+  bundledDeps: [
+    "solc",
+    "ethers",
+    "ethereumjs-wallet",
+    "@types/aws-lambda",
+    "aws-sdk",
+    "resolve",
+  ],
+  deps: [
+    "solc",
+    "ethers",
+    "ethereumjs-wallet",
+    "@types/aws-lambda",
+    "aws-sdk",
+    "resolve",
+  ],
   devDeps: [
     "@aws-cdk/aws-kms@1.132.0",
+    "@aws-cdk/aws-iam@1.132.0",
     "@aws-cdk/aws-lambda-nodejs@1.132.0",
     "@aws-cdk/aws-lambda@1.132.0",
     "@aws-cdk/aws-secretsmanager@1.132.0",
+    "@aws-cdk/aws-s3-assets@1.132.0",
     "@aws-cdk/core@1.132.0",
     "@aws-cdk/pipelines@1.132.0",
+    "@types/resolve",
     "constructs",
     "esbuild",
+    "ethers",
     "ts-node",
   ],
   peerDeps: [
     "@aws-cdk/aws-kms",
+    "@aws-cdk/aws-iam",
     "@aws-cdk/aws-lambda-nodejs",
     "@aws-cdk/aws-lambda",
     "@aws-cdk/aws-secretsmanager",
+    "@aws-cdk/aws-s3-assets",
     "@aws-cdk/core",
     "@aws-cdk/pipelines",
     "constructs",
@@ -70,8 +90,31 @@ function bundle() {
   esbuild src/$name.ts --bundle --platform=node --outfile=lib/$name/index.js --external:aws-sdk
 }
 
-bundle wallet-keygen`,
+bundle wallet-keygen
+bundle contract-deployer`,
   ],
+});
+
+new JsonFile(project, ".vscode/launch.json", {
+  obj: {
+    version: "0.2.0",
+    configurations: [
+      {
+        type: "node",
+        name: "vscode-jest-tests",
+        request: "launch",
+        stopOnEntry: true,
+        runtimeExecutable: "node",
+        program: "${workspaceRoot}/node_modules/.bin/jest",
+        args: ["--runInBand"],
+        cwd: "${workspaceRoot}",
+        console: "integratedTerminal",
+        internalConsoleOptions: "neverOpen",
+        disableOptimisticBPs: true,
+        sourceMaps: true,
+      },
+    ],
+  },
 });
 
 new JsonFile(project, ".vscode/settings.json", {
@@ -108,7 +151,6 @@ new JsonFile(project, ".vscode/settings.json", {
     "editor.insertSpaces": true,
     "editor.formatOnSave": true,
     "eslint.format.enable": false,
-    "jest.pathToConfig": "jest.config.ts",
     "tslint.enable": false,
     "typescript.tsc.autoDetect": "off",
   },

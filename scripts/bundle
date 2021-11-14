@@ -7,3 +7,4 @@ function bundle() {
 }
 
 bundle wallet-keygen
+bundle contract-deployer

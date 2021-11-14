@@ -2,6 +2,81 @@
 
 ## Constructs <a name="Constructs"></a>
 
+### Contract <a name="cdk3.Contract"></a>
+
+Compiles a Solidity Contract with the `solc` compiler and deploys it to a Blockchain network.
+
+#### Initializers <a name="cdk3.Contract.Initializer"></a>
+
+```typescript
+import { Contract } from 'cdk3'
+
+new Contract(scope: Construct, id: string, props: ContractProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="cdk3.Contract.parameter.scope"></a>
+
+- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="cdk3.Contract.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="cdk3.Contract.parameter.props"></a>
+
+- *Type:* [`cdk3.ContractProps`](#cdk3.ContractProps)
+
+---
+
+
+
+#### Properties <a name="Properties"></a>
+
+##### `asset`<sup>Required</sup> <a name="cdk3.Contract.property.asset"></a>
+
+```typescript
+public readonly asset: Asset;
+```
+
+- *Type:* [`@aws-cdk/aws-s3-assets.Asset`](#@aws-cdk/aws-s3-assets.Asset)
+
+---
+
+##### `contractFile`<sup>Required</sup> <a name="cdk3.Contract.property.contractFile"></a>
+
+```typescript
+public readonly contractFile: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `basePath`<sup>Optional</sup> <a name="cdk3.Contract.property.basePath"></a>
+
+```typescript
+public readonly basePath: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `includePaths`<sup>Optional</sup> <a name="cdk3.Contract.property.includePaths"></a>
+
+```typescript
+public readonly includePaths: string[];
+```
+
+- *Type:* `string`[]
+
+---
+
+
 ### Wallet <a name="cdk3.Wallet"></a>
 
 The `Wallet` Construct generates an Ethereum compatible wallet and stores it as an encrypted keystore in an AWS Secret encrypted with an AWS KMS Key.
@@ -143,6 +218,72 @@ public readonly walletName: string;
 
 
 ## Structs <a name="Structs"></a>
+
+### ContractProps <a name="cdk3.ContractProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { ContractProps } from 'cdk3'
+
+const contractProps: ContractProps = { ... }
+```
+
+##### `contractFile`<sup>Required</sup> <a name="cdk3.ContractProps.property.contractFile"></a>
+
+```typescript
+public readonly contractFile: string;
+```
+
+- *Type:* `string`
+
+Name of the Contract `.sol` file to compile.
+
+---
+
+##### `owner`<sup>Required</sup> <a name="cdk3.ContractProps.property.owner"></a>
+
+```typescript
+public readonly owner: Wallet;
+```
+
+- *Type:* [`cdk3.Wallet`](#cdk3.Wallet)
+
+Wallet which owns this Contract.
+
+---
+
+##### `basePath`<sup>Optional</sup> <a name="cdk3.ContractProps.property.basePath"></a>
+
+```typescript
+public readonly basePath: string;
+```
+
+- *Type:* `string`
+- *Default:* current working directory.
+
+Specify the `basePath` for the `solc` compiler.
+
+The `contractFile` path is relative to this pathh.
+
+> https://docs.soliditylang.org/en/v0.8.10/using-the-compiler.html#base-path-and-import-remapping
+
+---
+
+##### `includePaths`<sup>Optional</sup> <a name="cdk3.ContractProps.property.includePaths"></a>
+
+```typescript
+public readonly includePaths: string[];
+```
+
+- *Type:* `string`[]
+- *Default:* current working directory.
+
+Specify paths containing external code required by the compiler.
+
+> https://docs.soliditylang.org/en/v0.8.10/using-the-compiler.html#base-path-and-import-remapping
+
+---
 
 ### WalletProps <a name="cdk3.WalletProps"></a>
 

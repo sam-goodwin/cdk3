@@ -4,7 +4,10 @@
 export enum EnvironmentKeys {
   Address = "Address",
   ChecksumAddress = "ChecksumAddress",
+  ContractBucketName = "ContractBucketName",
+  ContractObjectKey = "ContractObjectKey",
   PublicKey = "PublicKey",
+  Transaction = "Transaction",
   WalletName = "WalletName",
   WalletSecretArn = "WalletSecretArn",
 }

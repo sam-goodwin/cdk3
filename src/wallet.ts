@@ -1,5 +1,6 @@
 import * as path from "path";
 
+import * as iam from "@aws-cdk/aws-iam";
 import * as kms from "@aws-cdk/aws-kms";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as secrets from "@aws-cdk/aws-secretsmanager";
@@ -121,5 +122,17 @@ export class Wallet extends cdk.Construct {
     this.checksumAddress = resource.getAttString(
       EnvironmentKeys.ChecksumAddress
     );
+  }
+
+  /**
+   * Grants read access to this Wallet's private key.
+   *
+   * The principal will be authorized to read the secret and decrypt with the KMS key.
+   *
+   * @param grantable principal to authorize access to this Wallet.
+   */
+  public grantRead(grantable: iam.IGrantable) {
+    this.encryptionKey.grantDecrypt(grantable);
+    this.privateKey.grantRead(grantable);
   }
 }

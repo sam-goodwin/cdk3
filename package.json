@@ -35,14 +35,17 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.132.0",
+    "@aws-cdk/aws-iam": "1.132.0",
     "@aws-cdk/aws-kms": "1.132.0",
     "@aws-cdk/aws-lambda": "1.132.0",
     "@aws-cdk/aws-lambda-nodejs": "1.132.0",
+    "@aws-cdk/aws-s3-assets": "1.132.0",
     "@aws-cdk/aws-secretsmanager": "1.132.0",
     "@aws-cdk/core": "1.132.0",
     "@aws-cdk/pipelines": "1.132.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^14.17.0",
+    "@types/resolve": "^1.20.1",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "constructs": "3.3.161",
@@ -53,6 +56,7 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
+    "ethers": "^5.5.1",
     "jest": "^27.3.1",
     "jest-junit": "^12",
     "jsii": "^1.43.0",
@@ -69,9 +73,11 @@
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
+    "@aws-cdk/aws-iam": "^1.132.0",
     "@aws-cdk/aws-kms": "^1.132.0",
     "@aws-cdk/aws-lambda": "^1.132.0",
     "@aws-cdk/aws-lambda-nodejs": "^1.132.0",
+    "@aws-cdk/aws-s3-assets": "^1.132.0",
     "@aws-cdk/aws-secretsmanager": "^1.132.0",
     "@aws-cdk/core": "^1.132.0",
     "@aws-cdk/pipelines": "^1.132.0",
@@ -81,12 +87,16 @@
     "@types/aws-lambda": "^8.10.85",
     "aws-sdk": "^2.1028.0",
     "ethereumjs-wallet": "^1.0.2",
+    "ethers": "^5.5.1",
+    "resolve": "^1.20.0",
     "solc": "^0.8.10"
   },
   "bundledDependencies": [
     "@types/aws-lambda",
     "aws-sdk",
     "ethereumjs-wallet",
+    "ethers",
+    "resolve",
     "solc"
   ],
   "keywords": [
