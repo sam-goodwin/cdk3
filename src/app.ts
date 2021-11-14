@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as path from "path";
 import * as cdk from "@aws-cdk/core";
 import * as cdk3 from ".";
@@ -12,9 +13,9 @@ const stack = new cdk.Stack(app, "test-cdk3-10", {
   },
 });
 
-const wallet = new cdk3.Wallet(stack, "Wallet", {});
+const wallet = new cdk3.Wallet(stack, "Wallet");
 
 new cdk3.Contract(stack, "HelloWorld", {
   owner: wallet,
-  contractFile: path.join(__dirname, "..", "contracts", "hello-world.sol"),
+  contractFile: path.join(__dirname, "..", "contracts", "my-erc20.sol"),
 });

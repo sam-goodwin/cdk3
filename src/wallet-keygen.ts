@@ -7,7 +7,7 @@ import {
   getString,
   getStringOrUndefined,
 } from "./cfn-util";
-import { EnvironmentKeys } from "./constants";
+import { Property } from "./constants";
 
 const secrets = new AWS.SecretsManager();
 
@@ -22,11 +22,11 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
   try {
     const secretArn = getString(
       event.ResourceProperties,
-      EnvironmentKeys.WalletSecretArn
+      Property("WalletSecretArn")
     );
     const walletName = getStringOrUndefined(
       event.ResourceProperties,
-      EnvironmentKeys.WalletName
+      Property("WalletName")
     );
     if (event.RequestType === "Create") {
       // generate a new Wallet address
@@ -47,10 +47,10 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
         PhysicalResourceId: secretArn,
         Data: {
           // export public information as a Resource propert
-          [EnvironmentKeys.Address]: wallet.getAddressString(),
-          [EnvironmentKeys.ChecksumAddress]: wallet.getChecksumAddressString(),
-          [EnvironmentKeys.PublicKey]: wallet.getPublicKeyString(),
-          [EnvironmentKeys.WalletName]: walletName,
+          [Property("Address")]: wallet.getAddressString(),
+          [Property("ChecksumAddress")]: wallet.getChecksumAddressString(),
+          [Property("PublicKey")]: wallet.getPublicKeyString(),
+          [Property("WalletName")]: walletName,
         },
       });
     } else {

@@ -6,7 +6,7 @@ import * as lambda from "@aws-cdk/aws-lambda";
 import * as secrets from "@aws-cdk/aws-secretsmanager";
 import * as cdk from "@aws-cdk/core";
 
-import { EnvironmentKeys } from "./constants";
+import { Property } from "./constants";
 
 export interface WalletProps {
   /**
@@ -112,16 +112,14 @@ export class Wallet extends cdk.Construct {
       resourceType: "Custom::Wallet",
       serviceToken: this.keyGenerator.functionArn,
       properties: {
-        [EnvironmentKeys.WalletName]: props.walletName,
-        [EnvironmentKeys.WalletSecretArn]: this.privateKey.secretArn,
+        [Property("WalletName")]: props.walletName,
+        [Property("WalletSecretArn")]: this.privateKey.secretArn,
       },
     });
-    this.walletName = resource.getAttString(EnvironmentKeys.WalletName);
-    this.publicKey = resource.getAttString(EnvironmentKeys.PublicKey);
-    this.address = resource.getAttString(EnvironmentKeys.Address);
-    this.checksumAddress = resource.getAttString(
-      EnvironmentKeys.ChecksumAddress
-    );
+    this.walletName = resource.getAttString(Property("WalletName"));
+    this.publicKey = resource.getAttString(Property("PublicKey"));
+    this.address = resource.getAttString(Property("Address"));
+    this.checksumAddress = resource.getAttString(Property("ChecksumAddress"));
   }
 
   /**

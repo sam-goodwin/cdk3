@@ -36,6 +36,18 @@ new Contract(scope: Construct, id: string, props: ContractProps)
 
 #### Properties <a name="Properties"></a>
 
+##### `address`<sup>Required</sup> <a name="cdk3.Contract.property.address"></a>
+
+```typescript
+public readonly address: string;
+```
+
+- *Type:* `string`
+
+Address of the Contract on the blockchain.
+
+---
+
 ##### `asset`<sup>Required</sup> <a name="cdk3.Contract.property.asset"></a>
 
 ```typescript
@@ -44,35 +56,43 @@ public readonly asset: Asset;
 
 - *Type:* [`@aws-cdk/aws-s3-assets.Asset`](#@aws-cdk/aws-s3-assets.Asset)
 
+Asset containing the compiled Solidity Contract.
+
 ---
 
-##### `contractFile`<sup>Required</sup> <a name="cdk3.Contract.property.contractFile"></a>
+##### `deployTransaction`<sup>Required</sup> <a name="cdk3.Contract.property.deployTransaction"></a>
 
 ```typescript
-public readonly contractFile: string;
+public readonly deployTransaction: string;
 ```
 
 - *Type:* `string`
 
 ---
 
-##### `basePath`<sup>Optional</sup> <a name="cdk3.Contract.property.basePath"></a>
+##### `owner`<sup>Required</sup> <a name="cdk3.Contract.property.owner"></a>
 
 ```typescript
-public readonly basePath: string;
+public readonly owner: Wallet;
+```
+
+- *Type:* [`cdk3.Wallet`](#cdk3.Wallet)
+
+Wallet which owns this Contract.
+
+---
+
+##### `resolvedAddress`<sup>Required</sup> <a name="cdk3.Contract.property.resolvedAddress"></a>
+
+```typescript
+public readonly resolvedAddress: string;
 ```
 
 - *Type:* `string`
 
----
+This will always be an address.
 
-##### `includePaths`<sup>Optional</sup> <a name="cdk3.Contract.property.includePaths"></a>
-
-```typescript
-public readonly includePaths: string[];
-```
-
-- *Type:* `string`[]
+This will only differ from address if an ENS name was used in the constructor
 
 ---
 
@@ -136,6 +156,21 @@ new Wallet(scope: Construct, id: string, props?: WalletProps)
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `grantRead` <a name="cdk3.Wallet.grantRead"></a>
+
+```typescript
+public grantRead(grantable: IGrantable)
+```
+
+###### `grantable`<sup>Required</sup> <a name="cdk3.Wallet.parameter.grantable"></a>
+
+- *Type:* [`@aws-cdk/aws-iam.IGrantable`](#@aws-cdk/aws-iam.IGrantable)
+
+principal to authorize access to this Wallet.
+
+---
 
 
 #### Properties <a name="Properties"></a>
@@ -267,6 +302,18 @@ Specify the `basePath` for the `solc` compiler.
 The `contractFile` path is relative to this pathh.
 
 > https://docs.soliditylang.org/en/v0.8.10/using-the-compiler.html#base-path-and-import-remapping
+
+---
+
+##### `constructorArguments`<sup>Optional</sup> <a name="cdk3.ContractProps.property.constructorArguments"></a>
+
+```typescript
+public readonly constructorArguments: any[];
+```
+
+- *Type:* `any`[]
+
+Argument values to pass to the Contract's constructor.
 
 ---
 

@@ -6,7 +6,7 @@ import { Asset } from "@aws-cdk/aws-s3-assets";
 import * as cdk from "@aws-cdk/core";
 import * as resolve from "resolve";
 
-import { EnvironmentKeys } from "./constants";
+import { Property } from "./constants";
 import * as solc from "./solc";
 import { Wallet } from "./wallet";
 
@@ -20,6 +20,11 @@ export interface ContractProps {
    * Name of the Contract `.sol` file to compile.
    */
   readonly contractFile: string;
+
+  /**
+   * Argument values to pass to the Contract's constructor.
+   */
+  readonly constructorArguments?: any[];
 
   /**
    * Specify the `basePath` for the `solc` compiler. The `contractFile` path is relative to this pathh.
@@ -52,9 +57,15 @@ export class Contract extends cdk.Construct {
    */
   readonly asset: Asset;
 
+  /**
+   * Address of the Contract on the blockchain.
+   */
   readonly address: string;
 
-  readonly deployTransaction: string;
+  /**
+   * This will always be an address. This will only differ from address if an ENS name was used in the constructor
+   */
+  readonly resolvedAddress: string;
 
   constructor(scope: cdk.Construct, id: string, props: ContractProps) {
     super(scope, id);
@@ -80,15 +91,19 @@ export class Contract extends cdk.Construct {
     const contractResource = new cdk.CustomResource(this, "Contract", {
       serviceToken: deployFunction.functionArn,
       properties: {
-        [EnvironmentKeys.WalletSecretArn]: this.owner.privateKey.secretArn,
-        [EnvironmentKeys.ContractBucketName]: this.asset.s3BucketName,
-        [EnvironmentKeys.ContractObjectKey]: this.asset.s3ObjectKey,
+        [Property("WalletSecretArn")]: this.owner.privateKey.secretArn,
+        [Property("ContractBucketName")]: this.asset.s3BucketName,
+        [Property("ContractObjectKey")]: this.asset.s3ObjectKey,
+        [Property("ContractConstructorArguments")]: props.constructorArguments,
       },
     });
 
-    this.address = contractResource.getAttString(EnvironmentKeys.Address);
+    this.address = contractResource.getAttString(Property("Address"));
+    this.resolvedAddress = contractResource.getAttString(
+      Property("ResolvedAddress")
+    );
     this.deployTransaction = contractResource.getAttString(
-      EnvironmentKeys.Transaction
+      Property("Transaction")
     );
   }
 
