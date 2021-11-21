@@ -15,6 +15,11 @@ const project = new AwsCdkConstructLibrary({
   // for cases when we deploy a CDK app within this project
   gitignore: ["cdk.out", "cdk3.out"],
 
+  scripts: {
+    // script for deploying the test app packaged in this repository.
+    deploy: "cdk deploy",
+  },
+
   // dependencies
   cdkVersion: "1.132.0",
   cdkAssert: true,
@@ -35,6 +40,10 @@ const project = new AwsCdkConstructLibrary({
     "resolve",
   ],
   devDeps: [
+    "@aws-cdk/aws-ec2@1.132.0",
+    "@aws-cdk/aws-ecs@1.132.0",
+    "@aws-cdk/aws-ecs-patterns@1.132.0",
+    "@aws-cdk/aws-elasticloadbalancingv2@1.132.0",
     "@aws-cdk/aws-kms@1.132.0",
     "@aws-cdk/aws-iam@1.132.0",
     "@aws-cdk/aws-lambda-nodejs@1.132.0",
@@ -50,6 +59,10 @@ const project = new AwsCdkConstructLibrary({
     "ts-node",
   ],
   peerDeps: [
+    "@aws-cdk/aws-ec2",
+    "@aws-cdk/aws-ecs",
+    "@aws-cdk/aws-ecs-patterns",
+    "@aws-cdk/aws-elasticloadbalancingv2",
     "@aws-cdk/aws-kms",
     "@aws-cdk/aws-iam",
     "@aws-cdk/aws-lambda-nodejs",

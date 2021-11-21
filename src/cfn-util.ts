@@ -106,3 +106,37 @@ export function getStringOrUndefined(
     `expected a string resource property, '${name}', but got '${prop}'`
   );
 }
+
+export function getNumberOrUndefined(
+  properties: CloudFormationCustomResourceEventCommon["ResourceProperties"],
+  name: string
+): number | undefined {
+  if (name in properties) {
+    return getNumber(properties, name);
+  } else {
+    return undefined;
+  }
+}
+
+export function getNumber(
+  properties: CloudFormationCustomResourceEventCommon["ResourceProperties"],
+  name: string
+): number {
+  const prop = properties[name];
+  if (typeof prop === "number") {
+    return prop;
+  } else if (typeof prop === "string") {
+    try {
+      return parseInt(prop, 10);
+    } catch (err) {
+      try {
+        return parseFloat(prop);
+      } catch {
+        // no-op
+      }
+    }
+  }
+  throw new Error(
+    `expected a number resource property, '${name}', but got '${prop}'`
+  );
+}

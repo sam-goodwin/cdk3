@@ -6,7 +6,7 @@ import * as lambda from "@aws-cdk/aws-lambda";
 import * as secrets from "@aws-cdk/aws-secretsmanager";
 import * as cdk from "@aws-cdk/core";
 
-import { Property } from "./constants";
+import { Property } from "./properties";
 
 export interface WalletProps {
   /**

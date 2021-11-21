@@ -8,12 +8,16 @@ export function Property<K extends keyof Properties>(key: K): K {
 
 export interface Properties {
   Address: string;
-  ResolvedAddress: string;
+  ChainID: string;
+  ChainName: string;
   ChecksumAddress: string;
   ContractBucketName: string;
-  ContractObjectKey: string;
   ContractConstructorArguments: string;
+  ContractObjectKey: string;
+  Hash: string;
+  RpcUrl: string;
   PublicKey: string;
+  ResolvedAddress: string;
   Transaction: string;
   WalletName: string;
   WalletSecretArn: string;

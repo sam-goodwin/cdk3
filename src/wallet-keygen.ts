@@ -7,7 +7,7 @@ import {
   getString,
   getStringOrUndefined,
 } from "./cfn-util";
-import { Property } from "./constants";
+import { Property } from "./properties";
 
 const secrets = new AWS.SecretsManager();
 

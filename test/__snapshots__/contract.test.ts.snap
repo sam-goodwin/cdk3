@@ -2,50 +2,778 @@
 
 exports[`Contract should compile Solidity Contract 1`] = `
 Object {
+  "Outputs": Object {
+    "ChainServiceLoadBalancerDNSA8B8DD71": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "ChainServiceLB40E7649D",
+          "DNSName",
+        ],
+      },
+    },
+    "ChainServiceServiceURLC5865682": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "http://",
+            Object {
+              "Fn::GetAtt": Array [
+                "ChainServiceLB40E7649D",
+                "DNSName",
+              ],
+            },
+          ],
+        ],
+      },
+    },
+  },
   "Parameters": Object {
-    "AssetParameters2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68ArtifactHash70121E3D": Object {
-      "Description": "Artifact hash for asset \\"2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68\\"",
+    "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761ArtifactHash2AF0ABFE": Object {
+      "Description": "Artifact hash for asset \\"127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761\\"",
       "Type": "String",
     },
-    "AssetParameters2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68S3Bucket8FD1FE07": Object {
-      "Description": "S3 bucket for asset \\"2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68\\"",
+    "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3Bucket255EAEAC": Object {
+      "Description": "S3 bucket for asset \\"127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761\\"",
       "Type": "String",
     },
-    "AssetParameters2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68S3VersionKeyC88FBDF1": Object {
-      "Description": "S3 key for asset version \\"2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68\\"",
+    "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3VersionKey79D16D59": Object {
+      "Description": "S3 key for asset version \\"127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761\\"",
       "Type": "String",
     },
-    "AssetParameterseee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5fArtifactHash75798420": Object {
-      "Description": "Artifact hash for asset \\"eee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5f\\"",
+    "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693ArtifactHash289D982F": Object {
+      "Description": "Artifact hash for asset \\"206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693\\"",
       "Type": "String",
     },
-    "AssetParameterseee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5fS3Bucket015842FE": Object {
-      "Description": "S3 bucket for asset \\"eee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5f\\"",
+    "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3BucketCFA8A23B": Object {
+      "Description": "S3 bucket for asset \\"206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693\\"",
       "Type": "String",
     },
-    "AssetParameterseee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5fS3VersionKey24AB30BE": Object {
-      "Description": "S3 key for asset version \\"eee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5f\\"",
+    "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3VersionKeyCA8BD1D7": Object {
+      "Description": "S3 key for asset version \\"206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693\\"",
       "Type": "String",
     },
-    "AssetParametersfdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4ArtifactHash03B2B2E0": Object {
-      "Description": "Artifact hash for asset \\"fdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4\\"",
+    "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dArtifactHash7A88F98A": Object {
+      "Description": "Artifact hash for asset \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
       "Type": "String",
     },
-    "AssetParametersfdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4S3BucketF24AA9B9": Object {
-      "Description": "S3 bucket for asset \\"fdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4\\"",
+    "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3Bucket6EBEE593": Object {
+      "Description": "S3 bucket for asset \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
       "Type": "String",
     },
-    "AssetParametersfdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4S3VersionKeyCAB52AED": Object {
-      "Description": "S3 key for asset version \\"fdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4\\"",
+    "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3VersionKey6C0EFEA9": Object {
+      "Description": "S3 key for asset version \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
+    "ChainCluster46039767": Object {
+      "Type": "AWS::ECS::Cluster",
+    },
+    "ChainServiceED2172CA": Object {
+      "DependsOn": Array [
+        "ChainServiceLBPublicListenerECSGroup5C15B602",
+        "ChainServiceLBPublicListener93A2B14F",
+      ],
+      "Properties": Object {
+        "Cluster": Object {
+          "Ref": "ChainCluster46039767",
+        },
+        "DeploymentConfiguration": Object {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "DesiredCount": 1,
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LaunchType": "FARGATE",
+        "LoadBalancers": Array [
+          Object {
+            "ContainerName": "web",
+            "ContainerPort": 80,
+            "TargetGroupArn": Object {
+              "Ref": "ChainServiceLBPublicListenerECSGroup5C15B602",
+            },
+          },
+        ],
+        "NetworkConfiguration": Object {
+          "AwsvpcConfiguration": Object {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": Array [
+              Object {
+                "Fn::GetAtt": Array [
+                  "ChainServiceSecurityGroup296F6B9A",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": Array [
+              Object {
+                "Ref": "ChainVPCPrivateSubnet1Subnet6ED624CD",
+              },
+              Object {
+                "Ref": "ChainVPCPrivateSubnet2Subnet60922772",
+              },
+            ],
+          },
+        },
+        "TaskDefinition": Object {
+          "Ref": "ChainServiceTaskDef04312CD5",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "ChainServiceLB40E7649D": Object {
+      "DependsOn": Array [
+        "ChainVPCPublicSubnet1DefaultRoute541094E9",
+        "ChainVPCPublicSubnet2DefaultRouteD0EC39C0",
+      ],
+      "Properties": Object {
+        "LoadBalancerAttributes": Array [
+          Object {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
+        "Scheme": "internet-facing",
+        "SecurityGroups": Array [
+          Object {
+            "Fn::GetAtt": Array [
+              "ChainServiceLBSecurityGroup5241ADC2",
+              "GroupId",
+            ],
+          },
+        ],
+        "Subnets": Array [
+          Object {
+            "Ref": "ChainVPCPublicSubnet1Subnet959FCBA5",
+          },
+          Object {
+            "Ref": "ChainVPCPublicSubnet2SubnetB7B65459",
+          },
+        ],
+        "Type": "application",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    },
+    "ChainServiceLBPublicListener93A2B14F": Object {
+      "Properties": Object {
+        "DefaultActions": Array [
+          Object {
+            "TargetGroupArn": Object {
+              "Ref": "ChainServiceLBPublicListenerECSGroup5C15B602",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": Object {
+          "Ref": "ChainServiceLB40E7649D",
+        },
+        "Port": 8545,
+        "Protocol": "HTTP",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "ChainServiceLBPublicListenerECSGroup5C15B602": Object {
+      "Properties": Object {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "TargetGroupAttributes": Array [
+          Object {
+            "Key": "stickiness.enabled",
+            "Value": "false",
+          },
+        ],
+        "TargetType": "ip",
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "ChainServiceLBSecurityGroup5241ADC2": Object {
+      "Properties": Object {
+        "GroupDescription": "Automatically created Security Group for ELB TestChainServiceLBB93F1B54",
+        "SecurityGroupIngress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 8545",
+            "FromPort": 8545,
+            "IpProtocol": "tcp",
+            "ToPort": 8545,
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "ChainServiceLBSecurityGrouptoTestChainServiceSecurityGroup98EEC4118024E824D4": Object {
+      "Properties": Object {
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceSecurityGroup296F6B9A",
+            "GroupId",
+          ],
+        },
+        "FromPort": 80,
+        "GroupId": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceLBSecurityGroup5241ADC2",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress",
+    },
+    "ChainServiceSecurityGroup296F6B9A": Object {
+      "Properties": Object {
+        "GroupDescription": "Test/Chain/Service/Service/SecurityGroup",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "ChainServiceSecurityGroupfromTestChainServiceLBSecurityGroup4C0E152880D4BA7ED4": Object {
+      "Properties": Object {
+        "Description": "Load balancer to target",
+        "FromPort": 80,
+        "GroupId": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceSecurityGroup296F6B9A",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceLBSecurityGroup5241ADC2",
+            "GroupId",
+          ],
+        },
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "ChainServiceTaskDef04312CD5": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Essential": true,
+            "Image": "trufflesuite/ganache-cli",
+            "LogConfiguration": Object {
+              "LogDriver": "awslogs",
+              "Options": Object {
+                "awslogs-group": Object {
+                  "Ref": "ChainServiceTaskDefwebLogGroupEFA7FD66",
+                },
+                "awslogs-region": Object {
+                  "Ref": "AWS::Region",
+                },
+                "awslogs-stream-prefix": "Service",
+              },
+            },
+            "Name": "web",
+            "PortMappings": Array [
+              Object {
+                "ContainerPort": 80,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceTaskDefExecutionRole3B6095A4",
+            "Arn",
+          ],
+        },
+        "Family": "TestChainServiceTaskDef0F39B939",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": Array [
+          "FARGATE",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceTaskDefTaskRole61BEB074",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "ChainServiceTaskDefExecutionRole3B6095A4": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ChainServiceTaskDefExecutionRoleDefaultPolicy8162C6BF": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "ChainServiceTaskDefwebLogGroupEFA7FD66",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ChainServiceTaskDefExecutionRoleDefaultPolicy8162C6BF",
+        "Roles": Array [
+          Object {
+            "Ref": "ChainServiceTaskDefExecutionRole3B6095A4",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ChainServiceTaskDefTaskRole61BEB074": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ChainServiceTaskDefwebLogGroupEFA7FD66": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ChainVPC8A02D304": Object {
+      "Properties": Object {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "ChainVPCIGWE1EB79ED": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "ChainVPCPrivateSubnet1DefaultRoute9A1BE2C9": Object {
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": Object {
+          "Ref": "ChainVPCPublicSubnet1NATGateway52F19AA6",
+        },
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPrivateSubnet1RouteTable2A9CFC20",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ChainVPCPrivateSubnet1RouteTable2A9CFC20": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PrivateSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ChainVPCPrivateSubnet1RouteTableAssociation8BC76356": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPrivateSubnet1RouteTable2A9CFC20",
+        },
+        "SubnetId": Object {
+          "Ref": "ChainVPCPrivateSubnet1Subnet6ED624CD",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ChainVPCPrivateSubnet1Subnet6ED624CD": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            0,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.128.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PrivateSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ChainVPCPrivateSubnet2DefaultRoute45BD4686": Object {
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": Object {
+          "Ref": "ChainVPCPublicSubnet2NATGateway4E2F62CC",
+        },
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPrivateSubnet2RouteTable08787F91",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ChainVPCPrivateSubnet2RouteTable08787F91": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PrivateSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ChainVPCPrivateSubnet2RouteTableAssociation7F119E2D": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPrivateSubnet2RouteTable08787F91",
+        },
+        "SubnetId": Object {
+          "Ref": "ChainVPCPrivateSubnet2Subnet60922772",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ChainVPCPrivateSubnet2Subnet60922772": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            1,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.192.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PrivateSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ChainVPCPublicSubnet1DefaultRoute541094E9": Object {
+      "DependsOn": Array [
+        "ChainVPCVPCGWD2366872",
+      ],
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": Object {
+          "Ref": "ChainVPCIGWE1EB79ED",
+        },
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPublicSubnet1RouteTableCC01E3A6",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ChainVPCPublicSubnet1EIP6AE95E94": Object {
+      "Properties": Object {
+        "Domain": "vpc",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "ChainVPCPublicSubnet1NATGateway52F19AA6": Object {
+      "Properties": Object {
+        "AllocationId": Object {
+          "Fn::GetAtt": Array [
+            "ChainVPCPublicSubnet1EIP6AE95E94",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": Object {
+          "Ref": "ChainVPCPublicSubnet1Subnet959FCBA5",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "ChainVPCPublicSubnet1RouteTableAssociationF6023A9F": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPublicSubnet1RouteTableCC01E3A6",
+        },
+        "SubnetId": Object {
+          "Ref": "ChainVPCPublicSubnet1Subnet959FCBA5",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ChainVPCPublicSubnet1RouteTableCC01E3A6": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ChainVPCPublicSubnet1Subnet959FCBA5": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            0,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ChainVPCPublicSubnet2DefaultRouteD0EC39C0": Object {
+      "DependsOn": Array [
+        "ChainVPCVPCGWD2366872",
+      ],
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": Object {
+          "Ref": "ChainVPCIGWE1EB79ED",
+        },
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPublicSubnet2RouteTable6DA6D5E5",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ChainVPCPublicSubnet2EIP2C221709": Object {
+      "Properties": Object {
+        "Domain": "vpc",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "ChainVPCPublicSubnet2NATGateway4E2F62CC": Object {
+      "Properties": Object {
+        "AllocationId": Object {
+          "Fn::GetAtt": Array [
+            "ChainVPCPublicSubnet2EIP2C221709",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": Object {
+          "Ref": "ChainVPCPublicSubnet2SubnetB7B65459",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "ChainVPCPublicSubnet2RouteTable6DA6D5E5": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ChainVPCPublicSubnet2RouteTableAssociation9EA0AF6F": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "ChainVPCPublicSubnet2RouteTable6DA6D5E5",
+        },
+        "SubnetId": Object {
+          "Ref": "ChainVPCPublicSubnet2SubnetB7B65459",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ChainVPCPublicSubnet2SubnetB7B65459": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            1,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.64.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "Test/Chain/VPC/PublicSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ChainVPCVPCGWD2366872": Object {
+      "Properties": Object {
+        "InternetGatewayId": Object {
+          "Ref": "ChainVPCIGWE1EB79ED",
+        },
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
     "ContractD86C0185": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
+        "ChainID": 1,
+        "ChainName": "Ethereum",
         "ContractBucketName": Object {
-          "Ref": "AssetParametersfdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4S3BucketF24AA9B9",
+          "Ref": "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3Bucket6EBEE593",
         },
         "ContractObjectKey": Object {
           "Fn::Join": Array [
@@ -58,7 +786,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParametersfdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4S3VersionKeyCAB52AED",
+                        "Ref": "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3VersionKey6C0EFEA9",
                       },
                     ],
                   },
@@ -71,13 +799,19 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParametersfdee61673484a901cbc23bc5a0d22de5d64d844b8a942035e08870b86d22c5d4S3VersionKeyCAB52AED",
+                        "Ref": "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3VersionKey6C0EFEA9",
                       },
                     ],
                   },
                 ],
               },
             ],
+          ],
+        },
+        "RpcUrl": Object {
+          "Fn::GetAtt": Array [
+            "ChainServiceLB40E7649D",
+            "DNSName",
           ],
         },
         "ServiceToken": Object {
@@ -101,7 +835,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameterseee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5fS3Bucket015842FE",
+            "Ref": "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3Bucket255EAEAC",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -114,7 +848,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterseee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5fS3VersionKey24AB30BE",
+                          "Ref": "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3VersionKey79D16D59",
                         },
                       ],
                     },
@@ -127,7 +861,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameterseee72eed4ba810991bc5a96e2573890c00232e3548ea324fca0277c5efe55e5fS3VersionKey24AB30BE",
+                          "Ref": "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3VersionKey79D16D59",
                         },
                       ],
                     },
@@ -147,8 +881,42 @@ Object {
         },
         "Runtime": "nodejs14.x",
         "Timeout": 60,
+        "VpcConfig": Object {
+          "SecurityGroupIds": Array [
+            Object {
+              "Fn::GetAtt": Array [
+                "ContractKeyGenereatorSecurityGroup0DBE76A3",
+                "GroupId",
+              ],
+            },
+          ],
+          "SubnetIds": Array [
+            Object {
+              "Ref": "ChainVPCPrivateSubnet1Subnet6ED624CD",
+            },
+            Object {
+              "Ref": "ChainVPCPrivateSubnet2Subnet60922772",
+            },
+          ],
+        },
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "ContractKeyGenereatorSecurityGroup0DBE76A3": Object {
+      "Properties": Object {
+        "GroupDescription": "Automatic security group for Lambda Function TestContractKeyGenereator568C9D6E",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
     },
     "ContractKeyGenereatorServiceRole37A99684": Object {
       "Properties": Object {
@@ -174,6 +942,18 @@ Object {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
               ],
             ],
           },
@@ -225,7 +1005,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68S3Bucket8FD1FE07",
+            "Ref": "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3BucketCFA8A23B",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -238,7 +1018,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68S3VersionKeyC88FBDF1",
+                          "Ref": "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3VersionKeyCA8BD1D7",
                         },
                       ],
                     },
@@ -251,7 +1031,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2afc1050df7a195b0b988586f1ca86a9e72e085a4752068ed482330c10507b68S3VersionKeyC88FBDF1",
+                          "Ref": "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3VersionKeyCA8BD1D7",
                         },
                       ],
                     },

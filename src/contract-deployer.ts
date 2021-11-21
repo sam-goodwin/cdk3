@@ -3,8 +3,13 @@ import * as AWS from "aws-sdk";
 
 import * as Wallet from "ethereumjs-wallet";
 import * as ethers from "ethers";
-import { callbackToCloudFormation, getString } from "./cfn-util";
-import { Property } from "./constants";
+import {
+  callbackToCloudFormation,
+  getNumberOrUndefined,
+  getString,
+  getStringOrUndefined,
+} from "./cfn-util";
+import { Property } from "./properties";
 
 const s3 = new AWS.S3();
 const secrets = new AWS.SecretsManager();
@@ -18,6 +23,23 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
     const bucketName = getString(event, Property("ContractBucketName"));
     const objectKey = getString(event, Property("ContractObjectKey"));
     const walletSecretArn = getString(event, Property("WalletSecretArn"));
+    const rpcURL = getStringOrUndefined(event, Property("RpcUrl"));
+    const chainId = getNumberOrUndefined(event, Property("ChainID"));
+    const chainName = getStringOrUndefined(event, Property("ChainName"));
+
+    if (
+      rpcURL === undefined &&
+      (chainId === undefined || chainName === undefined)
+    ) {
+      throw new Error(
+        `you must provide either the '${Property(
+          "RpcUrl"
+        )}'' or both the '${Property("ChainID")}' and '${Property(
+          "ChainName"
+        )}' properties.`
+      );
+    }
+
     const args =
       event.ResourceProperties[Property("ContractConstructorArguments")];
     if (
@@ -57,10 +79,14 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
     );
 
     const provider = ethers.providers.getDefaultProvider(
-      ethers.providers.getNetwork({
-        chainId: 1,
-        name: "",
-      })
+      ethers.providers.getNetwork(
+        rpcURL
+          ? rpcURL
+          : {
+              chainId: chainId!,
+              name: chainName!,
+            }
+      )
     );
     const walletSigner = new ethers.Wallet(
       decryptedWallet.getPrivateKeyString(),
@@ -76,15 +102,19 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
 
       const contract = await contractFactory.deploy(...args);
 
-      await contractFactory.getDeployTransaction();
-
       await callbackToCloudFormation(event, {
         Status: "SUCCESS",
         PhysicalResourceId: contract.address,
         Data: {
           [Property("Address")]: contract.address,
+          [Property("Hash")]: contract.deployTransaction.hash,
           [Property("ResolvedAddress")]: await contract.resolvedAddress,
         },
+      });
+    } else {
+      await callbackToCloudFormation(event, {
+        Status: "SUCCESS",
+        PhysicalResourceId: event.PhysicalResourceId,
       });
     }
   } catch (err) {

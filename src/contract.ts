@@ -5,8 +5,9 @@ import * as lambda from "@aws-cdk/aws-lambda";
 import { Asset } from "@aws-cdk/aws-s3-assets";
 import * as cdk from "@aws-cdk/core";
 import * as resolve from "resolve";
-
-import { Property } from "./constants";
+import { isLocalEthChain } from ".";
+import { IChain } from "./chain";
+import { Property } from "./properties";
 import * as solc from "./solc";
 import { Wallet } from "./wallet";
 
@@ -41,6 +42,11 @@ export interface ContractProps {
    * @see https://docs.soliditylang.org/en/v0.8.10/using-the-compiler.html#base-path-and-import-remapping
    */
   readonly includePaths?: string[];
+
+  /**
+   * Blockchain to deploy this Contract to.
+   */
+  readonly chain: IChain;
 }
 
 /**
@@ -67,10 +73,21 @@ export class Contract extends cdk.Construct {
    */
   readonly resolvedAddress: string;
 
+  /**
+   * Hash of the deploy transaction.
+   */
+  readonly hash: string;
+
+  /**
+   * Blockchain this Contract is deployed to.
+   */
+  readonly chain: IChain;
+
   constructor(scope: cdk.Construct, id: string, props: ContractProps) {
     super(scope, id);
 
     this.owner = props.owner;
+    this.chain = props.chain;
 
     this.asset = new Asset(this, "CompiledContract", {
       path: this.compileContract(props),
@@ -84,6 +101,7 @@ export class Contract extends cdk.Construct {
       handler: "index.handle",
       memorySize: 512,
       timeout: cdk.Duration.minutes(1),
+      vpc: isLocalEthChain(props.chain) ? props.chain.vpc : undefined,
     });
 
     this.owner.grantRead(deployFunction);
@@ -91,19 +109,20 @@ export class Contract extends cdk.Construct {
     const contractResource = new cdk.CustomResource(this, "Contract", {
       serviceToken: deployFunction.functionArn,
       properties: {
-        [Property("WalletSecretArn")]: this.owner.privateKey.secretArn,
+        [Property("ChainID")]: props.chain.chainId,
+        [Property("ChainName")]: props.chain.chainName,
         [Property("ContractBucketName")]: this.asset.s3BucketName,
-        [Property("ContractObjectKey")]: this.asset.s3ObjectKey,
         [Property("ContractConstructorArguments")]: props.constructorArguments,
+        [Property("ContractObjectKey")]: this.asset.s3ObjectKey,
+        [Property("RpcUrl")]: props.chain.rpcUrl,
+        [Property("WalletSecretArn")]: this.owner.privateKey.secretArn,
       },
     });
 
     this.address = contractResource.getAttString(Property("Address"));
+    this.hash = contractResource.getAttString(Property("Hash"));
     this.resolvedAddress = contractResource.getAttString(
       Property("ResolvedAddress")
-    );
-    this.deployTransaction = contractResource.getAttString(
-      Property("Transaction")
     );
   }
 

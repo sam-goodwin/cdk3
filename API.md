@@ -60,13 +60,27 @@ Asset containing the compiled Solidity Contract.
 
 ---
 
-##### `deployTransaction`<sup>Required</sup> <a name="cdk3.Contract.property.deployTransaction"></a>
+##### `chain`<sup>Required</sup> <a name="cdk3.Contract.property.chain"></a>
 
 ```typescript
-public readonly deployTransaction: string;
+public readonly chain: IChain;
+```
+
+- *Type:* [`cdk3.IChain`](#cdk3.IChain)
+
+Blockchain this Contract is deployed to.
+
+---
+
+##### `hash`<sup>Required</sup> <a name="cdk3.Contract.property.hash"></a>
+
+```typescript
+public readonly hash: string;
 ```
 
 - *Type:* `string`
+
+Hash of the deploy transaction.
 
 ---
 
@@ -93,6 +107,113 @@ public readonly resolvedAddress: string;
 This will always be an address.
 
 This will only differ from address if an ENS name was used in the constructor
+
+---
+
+
+### LocalEthChain <a name="cdk3.LocalEthChain"></a>
+
+- *Implements:* [`cdk3.IChain`](#cdk3.IChain)
+
+Creates a local Ethereum chain hosted on an ECS Fargate cluster.
+
+#### Initializers <a name="cdk3.LocalEthChain.Initializer"></a>
+
+```typescript
+import { LocalEthChain } from 'cdk3'
+
+new LocalEthChain(scope: Construct, id: string, props?: LocalEthChainProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="cdk3.LocalEthChain.parameter.scope"></a>
+
+- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="cdk3.LocalEthChain.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Optional</sup> <a name="cdk3.LocalEthChain.parameter.props"></a>
+
+- *Type:* [`cdk3.LocalEthChainProps`](#cdk3.LocalEthChainProps)
+
+---
+
+
+
+#### Properties <a name="Properties"></a>
+
+##### `chainId`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.chainId"></a>
+
+```typescript
+public readonly chainId: number;
+```
+
+- *Type:* `number`
+
+---
+
+##### `chainName`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.chainName"></a>
+
+```typescript
+public readonly chainName: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `cluster`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.cluster"></a>
+
+```typescript
+public readonly cluster: Cluster;
+```
+
+- *Type:* [`@aws-cdk/aws-ecs.Cluster`](#@aws-cdk/aws-ecs.Cluster)
+
+---
+
+##### `kind`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `service`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.service"></a>
+
+```typescript
+public readonly service: ApplicationLoadBalancedFargateService;
+```
+
+- *Type:* [`@aws-cdk/aws-ecs-patterns.ApplicationLoadBalancedFargateService`](#@aws-cdk/aws-ecs-patterns.ApplicationLoadBalancedFargateService)
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.vpc"></a>
+
+```typescript
+public readonly vpc: Vpc;
+```
+
+- *Type:* [`@aws-cdk/aws-ec2.Vpc`](#@aws-cdk/aws-ec2.Vpc)
+
+---
+
+##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.LocalEthChain.property.rpcUrl"></a>
+
+```typescript
+public readonly rpcUrl: string;
+```
+
+- *Type:* `string`
 
 ---
 
@@ -264,6 +385,18 @@ import { ContractProps } from 'cdk3'
 const contractProps: ContractProps = { ... }
 ```
 
+##### `chain`<sup>Required</sup> <a name="cdk3.ContractProps.property.chain"></a>
+
+```typescript
+public readonly chain: IChain;
+```
+
+- *Type:* [`cdk3.IChain`](#cdk3.IChain)
+
+Blockchain to deploy this Contract to.
+
+---
+
 ##### `contractFile`<sup>Required</sup> <a name="cdk3.ContractProps.property.contractFile"></a>
 
 ```typescript
@@ -332,6 +465,29 @@ Specify paths containing external code required by the compiler.
 
 ---
 
+### LocalEthChainProps <a name="cdk3.LocalEthChainProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { LocalEthChainProps } from 'cdk3'
+
+const localEthChainProps: LocalEthChainProps = { ... }
+```
+
+##### `vpc`<sup>Optional</sup> <a name="cdk3.LocalEthChainProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: Vpc;
+```
+
+- *Type:* [`@aws-cdk/aws-ec2.Vpc`](#@aws-cdk/aws-ec2.Vpc)
+- *Default:* a VPC is created for you.
+
+VPC to run the local network win.
+
+---
+
 ### WalletProps <a name="cdk3.WalletProps"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
@@ -366,5 +522,174 @@ Name of the Wallet.
 
 ---
 
+## Classes <a name="Classes"></a>
 
+### Chain <a name="cdk3.Chain"></a>
+
+- *Implements:* [`cdk3.IChain`](#cdk3.IChain)
+
+#### Initializers <a name="cdk3.Chain.Initializer"></a>
+
+```typescript
+import { Chain } from 'cdk3'
+
+new Chain(chainName: string, chainId: number, symbol: string, rpcUrl?: string, blockExplorer?: string)
+```
+
+##### `chainName`<sup>Required</sup> <a name="cdk3.Chain.parameter.chainName"></a>
+
+- *Type:* `string`
+
+---
+
+##### `chainId`<sup>Required</sup> <a name="cdk3.Chain.parameter.chainId"></a>
+
+- *Type:* `number`
+
+---
+
+##### `symbol`<sup>Required</sup> <a name="cdk3.Chain.parameter.symbol"></a>
+
+- *Type:* `string`
+
+---
+
+##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.Chain.parameter.rpcUrl"></a>
+
+- *Type:* `string`
+
+---
+
+##### `blockExplorer`<sup>Optional</sup> <a name="cdk3.Chain.parameter.blockExplorer"></a>
+
+- *Type:* `string`
+
+---
+
+
+
+#### Properties <a name="Properties"></a>
+
+##### `chainId`<sup>Required</sup> <a name="cdk3.Chain.property.chainId"></a>
+
+```typescript
+public readonly chainId: number;
+```
+
+- *Type:* `number`
+
+---
+
+##### `chainName`<sup>Required</sup> <a name="cdk3.Chain.property.chainName"></a>
+
+```typescript
+public readonly chainName: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `symbol`<sup>Required</sup> <a name="cdk3.Chain.property.symbol"></a>
+
+```typescript
+public readonly symbol: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `blockExplorer`<sup>Optional</sup> <a name="cdk3.Chain.property.blockExplorer"></a>
+
+```typescript
+public readonly blockExplorer: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.Chain.property.rpcUrl"></a>
+
+```typescript
+public readonly rpcUrl: string;
+```
+
+- *Type:* `string`
+
+---
+
+#### Constants <a name="Constants"></a>
+
+##### `Avalance` <a name="cdk3.Chain.property.Avalance"></a>
+
+- *Type:* [`cdk3.Chain`](#cdk3.Chain)
+
+> https://www.avax.network/
+
+---
+
+##### `BinanceSmartChain` <a name="cdk3.Chain.property.BinanceSmartChain"></a>
+
+- *Type:* [`cdk3.Chain`](#cdk3.Chain)
+
+> https://www.binance.org/en/smartChain
+
+---
+
+##### `Ethereum` <a name="cdk3.Chain.property.Ethereum"></a>
+
+- *Type:* [`cdk3.Chain`](#cdk3.Chain)
+
+> https://ethereum.org/
+
+---
+
+##### `Fantom` <a name="cdk3.Chain.property.Fantom"></a>
+
+- *Type:* [`cdk3.Chain`](#cdk3.Chain)
+
+> https://fantom.foundation/
+
+---
+
+## Protocols <a name="Protocols"></a>
+
+### IChain <a name="cdk3.IChain"></a>
+
+- *Implemented By:* [`cdk3.Chain`](#cdk3.Chain), [`cdk3.LocalEthChain`](#cdk3.LocalEthChain), [`cdk3.IChain`](#cdk3.IChain)
+
+
+#### Properties <a name="Properties"></a>
+
+##### `chainId`<sup>Required</sup> <a name="cdk3.IChain.property.chainId"></a>
+
+```typescript
+public readonly chainId: number;
+```
+
+- *Type:* `number`
+
+---
+
+##### `chainName`<sup>Required</sup> <a name="cdk3.IChain.property.chainName"></a>
+
+```typescript
+public readonly chainName: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.IChain.property.rpcUrl"></a>
+
+```typescript
+public readonly rpcUrl: string;
+```
+
+- *Type:* `string`
+
+---
 
