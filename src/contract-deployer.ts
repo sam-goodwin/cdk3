@@ -1,7 +1,7 @@
 import { CloudFormationCustomResourceEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
 
-import * as Wallet from "ethereumjs-wallet";
+import Wallet from "ethereumjs-wallet";
 import * as ethers from "ethers";
 import {
   callbackToCloudFormation,
@@ -20,6 +20,7 @@ const secrets = new AWS.SecretsManager();
  */
 export async function handle(event: CloudFormationCustomResourceEvent) {
   try {
+    console.log(event);
     const bucketName = getString(event, Property("ContractBucketName"));
     const objectKey = getString(event, Property("ContractObjectKey"));
     const walletSecretArn = getString(event, Property("WalletSecretArn"));
@@ -42,13 +43,7 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
 
     const args =
       event.ResourceProperties[Property("ContractConstructorArguments")];
-    if (
-      !(Property("ContractConstructorArguments") in event.ResourceProperties)
-    ) {
-      throw new Error(
-        `missing property '${Property("ContractConstructorArguments")}'.`
-      );
-    } else if (args !== undefined && !Array.isArray(args)) {
+    if (args !== undefined && !Array.isArray(args)) {
       throw new Error(
         `expected array for property '${Property(
           "ContractConstructorArguments"
@@ -73,7 +68,7 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
     if (encryptedWallet.SecretString === undefined) {
       throw new Error(`failed to load wallet from '${walletSecretArn}'.`);
     }
-    const decryptedWallet = await Wallet.default.fromV3(
+    const decryptedWallet = await Wallet.fromV3(
       encryptedWallet.SecretString,
       "password"
     );
@@ -126,11 +121,3 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
     });
   }
 }
-
-// const factory = new ContractFactory(contractAbi, contractByteCode);
-
-// // If your contract requires constructor args, you can specify them here
-// const contract = await factory.deploy(deployArgs);
-
-// console.log(contract.address);
-// console.log(contract.deployTransaction);

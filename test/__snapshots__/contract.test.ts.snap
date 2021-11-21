@@ -11,65 +11,46 @@ Object {
         ],
       },
     },
-    "ChainServiceServiceURLC5865682": Object {
-      "Value": Object {
-        "Fn::Join": Array [
-          "",
-          Array [
-            "http://",
-            Object {
-              "Fn::GetAtt": Array [
-                "ChainServiceLB40E7649D",
-                "DNSName",
-              ],
-            },
-          ],
-        ],
-      },
-    },
   },
   "Parameters": Object {
-    "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761ArtifactHash2AF0ABFE": Object {
-      "Description": "Artifact hash for asset \\"127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761\\"",
+    "AssetParameters1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54ArtifactHash13E5A1C9": Object {
+      "Description": "Artifact hash for asset \\"1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54\\"",
       "Type": "String",
     },
-    "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3Bucket255EAEAC": Object {
-      "Description": "S3 bucket for asset \\"127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761\\"",
+    "AssetParameters1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54S3Bucket866CF45D": Object {
+      "Description": "S3 bucket for asset \\"1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54\\"",
       "Type": "String",
     },
-    "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3VersionKey79D16D59": Object {
-      "Description": "S3 key for asset version \\"127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761\\"",
+    "AssetParameters1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54S3VersionKey78AB15D2": Object {
+      "Description": "S3 key for asset version \\"1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54\\"",
       "Type": "String",
     },
-    "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693ArtifactHash289D982F": Object {
-      "Description": "Artifact hash for asset \\"206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693\\"",
+    "AssetParameters6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937ArtifactHash1E0B5CBA": Object {
+      "Description": "Artifact hash for asset \\"6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937\\"",
       "Type": "String",
     },
-    "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3BucketCFA8A23B": Object {
-      "Description": "S3 bucket for asset \\"206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693\\"",
+    "AssetParameters6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937S3BucketEE43354F": Object {
+      "Description": "S3 bucket for asset \\"6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937\\"",
       "Type": "String",
     },
-    "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3VersionKeyCA8BD1D7": Object {
-      "Description": "S3 key for asset version \\"206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693\\"",
+    "AssetParameters6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937S3VersionKey00DBA5F2": Object {
+      "Description": "S3 key for asset version \\"6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937\\"",
       "Type": "String",
     },
-    "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dArtifactHash7A88F98A": Object {
-      "Description": "Artifact hash for asset \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
+    "AssetParametersd6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33aArtifactHashDDFDD32A": Object {
+      "Description": "Artifact hash for asset \\"d6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33a\\"",
       "Type": "String",
     },
-    "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3Bucket6EBEE593": Object {
-      "Description": "S3 bucket for asset \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
+    "AssetParametersd6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33aS3Bucket525E867E": Object {
+      "Description": "S3 bucket for asset \\"d6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33a\\"",
       "Type": "String",
     },
-    "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3VersionKey6C0EFEA9": Object {
-      "Description": "S3 key for asset version \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
+    "AssetParametersd6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33aS3VersionKey250E4B49": Object {
+      "Description": "S3 key for asset version \\"d6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33a\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "ChainCluster46039767": Object {
-      "Type": "AWS::ECS::Cluster",
-    },
     "ChainServiceED2172CA": Object {
       "DependsOn": Array [
         "ChainServiceLBPublicListenerECSGroup5C15B602",
@@ -77,7 +58,7 @@ Object {
       ],
       "Properties": Object {
         "Cluster": Object {
-          "Ref": "ChainCluster46039767",
+          "Ref": "EcsDefaultClusterMnL3mNNYNVPC9C1EC7A3",
         },
         "DeploymentConfiguration": Object {
           "MaximumPercent": 200,
@@ -90,7 +71,7 @@ Object {
         "LoadBalancers": Array [
           Object {
             "ContainerName": "web",
-            "ContainerPort": 80,
+            "ContainerPort": 8545,
             "TargetGroupArn": Object {
               "Ref": "ChainServiceLBPublicListenerECSGroup5C15B602",
             },
@@ -136,14 +117,6 @@ Object {
           },
         ],
         "Scheme": "internet-facing",
-        "SecurityGroups": Array [
-          Object {
-            "Fn::GetAtt": Array [
-              "ChainServiceLBSecurityGroup5241ADC2",
-              "GroupId",
-            ],
-          },
-        ],
         "Subnets": Array [
           Object {
             "Ref": "ChainVPCPublicSubnet1Subnet959FCBA5",
@@ -152,7 +125,7 @@ Object {
             "Ref": "ChainVPCPublicSubnet2SubnetB7B65459",
           },
         ],
-        "Type": "application",
+        "Type": "network",
       },
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
     },
@@ -170,65 +143,20 @@ Object {
           "Ref": "ChainServiceLB40E7649D",
         },
         "Port": 8545,
-        "Protocol": "HTTP",
+        "Protocol": "TCP",
       },
       "Type": "AWS::ElasticLoadBalancingV2::Listener",
     },
     "ChainServiceLBPublicListenerECSGroup5C15B602": Object {
       "Properties": Object {
         "Port": 80,
-        "Protocol": "HTTP",
-        "TargetGroupAttributes": Array [
-          Object {
-            "Key": "stickiness.enabled",
-            "Value": "false",
-          },
-        ],
+        "Protocol": "TCP",
         "TargetType": "ip",
         "VpcId": Object {
           "Ref": "ChainVPC8A02D304",
         },
       },
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-    },
-    "ChainServiceLBSecurityGroup5241ADC2": Object {
-      "Properties": Object {
-        "GroupDescription": "Automatically created Security Group for ELB TestChainServiceLBB93F1B54",
-        "SecurityGroupIngress": Array [
-          Object {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow from anyone on port 8545",
-            "FromPort": 8545,
-            "IpProtocol": "tcp",
-            "ToPort": 8545,
-          },
-        ],
-        "VpcId": Object {
-          "Ref": "ChainVPC8A02D304",
-        },
-      },
-      "Type": "AWS::EC2::SecurityGroup",
-    },
-    "ChainServiceLBSecurityGrouptoTestChainServiceSecurityGroup98EEC4118024E824D4": Object {
-      "Properties": Object {
-        "Description": "Load balancer to target",
-        "DestinationSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceSecurityGroup296F6B9A",
-            "GroupId",
-          ],
-        },
-        "FromPort": 80,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceLBSecurityGroup5241ADC2",
-            "GroupId",
-          ],
-        },
-        "IpProtocol": "tcp",
-        "ToPort": 80,
-      },
-      "Type": "AWS::EC2::SecurityGroupEgress",
     },
     "ChainServiceSecurityGroup296F6B9A": Object {
       "Properties": Object {
@@ -245,27 +173,6 @@ Object {
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
-    },
-    "ChainServiceSecurityGroupfromTestChainServiceLBSecurityGroup4C0E152880D4BA7ED4": Object {
-      "Properties": Object {
-        "Description": "Load balancer to target",
-        "FromPort": 80,
-        "GroupId": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceSecurityGroup296F6B9A",
-            "GroupId",
-          ],
-        },
-        "IpProtocol": "tcp",
-        "SourceSecurityGroupId": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceLBSecurityGroup5241ADC2",
-            "GroupId",
-          ],
-        },
-        "ToPort": 80,
-      },
-      "Type": "AWS::EC2::SecurityGroupIngress",
     },
     "ChainServiceTaskDef04312CD5": Object {
       "Properties": Object {
@@ -288,7 +195,7 @@ Object {
             "Name": "web",
             "PortMappings": Array [
               Object {
-                "ContainerPort": 80,
+                "ContainerPort": 8545,
                 "Protocol": "tcp",
               },
             ],
@@ -773,7 +680,7 @@ Object {
         "ChainID": 1,
         "ChainName": "Ethereum",
         "ContractBucketName": Object {
-          "Ref": "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3Bucket6EBEE593",
+          "Ref": "AssetParameters6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937S3BucketEE43354F",
         },
         "ContractObjectKey": Object {
           "Fn::Join": Array [
@@ -786,7 +693,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3VersionKey6C0EFEA9",
+                        "Ref": "AssetParameters6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937S3VersionKey00DBA5F2",
                       },
                     ],
                   },
@@ -799,7 +706,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dS3VersionKey6C0EFEA9",
+                        "Ref": "AssetParameters6c5eca270397de0bcae6723e1707c96cd6c9d387604689702697495e7354c937S3VersionKey00DBA5F2",
                       },
                     ],
                   },
@@ -809,14 +716,22 @@ Object {
           ],
         },
         "RpcUrl": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceLB40E7649D",
-            "DNSName",
+          "Fn::Join": Array [
+            "",
+            Array [
+              "https://",
+              Object {
+                "Fn::GetAtt": Array [
+                  "ChainServiceLB40E7649D",
+                  "DNSName",
+                ],
+              },
+            ],
           ],
         },
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "ContractKeyGenereatorF684DB52",
+            "ContractDeployer5241631F",
             "Arn",
           ],
         },
@@ -827,15 +742,15 @@ Object {
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
     },
-    "ContractKeyGenereatorF684DB52": Object {
+    "ContractDeployer5241631F": Object {
       "DependsOn": Array [
-        "ContractKeyGenereatorServiceRoleDefaultPolicy71FD664C",
-        "ContractKeyGenereatorServiceRole37A99684",
+        "ContractDeployerServiceRoleDefaultPolicy53F0D499",
+        "ContractDeployerServiceRole4D541F12",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3Bucket255EAEAC",
+            "Ref": "AssetParameters1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54S3Bucket866CF45D",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -848,7 +763,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3VersionKey79D16D59",
+                          "Ref": "AssetParameters1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54S3VersionKey78AB15D2",
                         },
                       ],
                     },
@@ -861,7 +776,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters127914ce1f0ded76af943bedb5617dacbd539c2ba7107aab51873809b9939761S3VersionKey79D16D59",
+                          "Ref": "AssetParameters1820fe991586a9a1df932807aa958f41f4240e3322e8196480309d72b34a8d54S3VersionKey78AB15D2",
                         },
                       ],
                     },
@@ -875,7 +790,7 @@ Object {
         "MemorySize": 512,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "ContractKeyGenereatorServiceRole37A99684",
+            "ContractDeployerServiceRole4D541F12",
             "Arn",
           ],
         },
@@ -885,7 +800,7 @@ Object {
           "SecurityGroupIds": Array [
             Object {
               "Fn::GetAtt": Array [
-                "ContractKeyGenereatorSecurityGroup0DBE76A3",
+                "ContractDeployerSecurityGroup73A1A704",
                 "GroupId",
               ],
             },
@@ -902,9 +817,9 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "ContractKeyGenereatorSecurityGroup0DBE76A3": Object {
+    "ContractDeployerSecurityGroup73A1A704": Object {
       "Properties": Object {
-        "GroupDescription": "Automatic security group for Lambda Function TestContractKeyGenereator568C9D6E",
+        "GroupDescription": "Automatic security group for Lambda Function TestContractDeployer5F78E0FF",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -918,7 +833,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "ContractKeyGenereatorServiceRole37A99684": Object {
+    "ContractDeployerServiceRole4D541F12": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -961,7 +876,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "ContractKeyGenereatorServiceRoleDefaultPolicy71FD664C": Object {
+    "ContractDeployerServiceRoleDefaultPolicy53F0D499": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -988,14 +903,17 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "ContractKeyGenereatorServiceRoleDefaultPolicy71FD664C",
+        "PolicyName": "ContractDeployerServiceRoleDefaultPolicy53F0D499",
         "Roles": Array [
           Object {
-            "Ref": "ContractKeyGenereatorServiceRole37A99684",
+            "Ref": "ContractDeployerServiceRole4D541F12",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "EcsDefaultClusterMnL3mNNYNVPC9C1EC7A3": Object {
+      "Type": "AWS::ECS::Cluster",
     },
     "SingletonLambdaethereumwalletkeygenerator6D364F19": Object {
       "DependsOn": Array [
@@ -1005,7 +923,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3BucketCFA8A23B",
+            "Ref": "AssetParametersd6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33aS3Bucket525E867E",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -1018,7 +936,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3VersionKeyCA8BD1D7",
+                          "Ref": "AssetParametersd6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33aS3VersionKey250E4B49",
                         },
                       ],
                     },
@@ -1031,7 +949,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters206708949db0ea2a089f834f9b6929a7dc278c1ecd76cf705c22f3ff2426a693S3VersionKeyCA8BD1D7",
+                          "Ref": "AssetParametersd6267659234819e2b39096cc5acf547d78050fd9972d0b68eae767ce09bbb33aS3VersionKey250E4B49",
                         },
                       ],
                     },
@@ -1329,7 +1247,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "ContractKeyGenereatorServiceRole37A99684",
+                    "ContractDeployerServiceRole4D541F12",
                     "Arn",
                   ],
                 },
@@ -1358,7 +1276,7 @@ Object {
               "Principal": Object {
                 "AWS": Object {
                   "Fn::GetAtt": Array [
-                    "ContractKeyGenereatorServiceRole37A99684",
+                    "ContractDeployerServiceRole4D541F12",
                     "Arn",
                   ],
                 },

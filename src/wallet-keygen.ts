@@ -1,6 +1,6 @@
 import type { CloudFormationCustomResourceEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
-import * as Wallet from "ethereumjs-wallet";
+import Wallet from "ethereumjs-wallet";
 
 import {
   callbackToCloudFormation,
@@ -20,17 +20,11 @@ const secrets = new AWS.SecretsManager();
 export async function handle(event: CloudFormationCustomResourceEvent) {
   console.log(event);
   try {
-    const secretArn = getString(
-      event.ResourceProperties,
-      Property("WalletSecretArn")
-    );
-    const walletName = getStringOrUndefined(
-      event.ResourceProperties,
-      Property("WalletName")
-    );
+    const secretArn = getString(event, Property("WalletSecretArn"));
+    const walletName = getStringOrUndefined(event, Property("WalletName"));
     if (event.RequestType === "Create") {
       // generate a new Wallet address
-      const wallet = Wallet.default.generate();
+      const wallet = Wallet.generate();
 
       // Store the V3 KeyStore in AWS KMS.
       await secrets

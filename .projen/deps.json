@@ -123,6 +123,10 @@
       "type": "build"
     },
     {
+      "name": "ganache-cli",
+      "type": "build"
+    },
+    {
       "name": "jest",
       "type": "build"
     },

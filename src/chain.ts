@@ -80,8 +80,7 @@ export class LocalEthChain extends cdk.Construct implements IChain {
   readonly chainId: number;
   readonly rpcUrl?: string;
   readonly vpc: ec2.Vpc;
-  readonly cluster: ecs.Cluster;
-  readonly service: ecsPatterns.ApplicationLoadBalancedFargateService;
+  readonly service: ecsPatterns.NetworkLoadBalancedFargateService;
 
   constructor(
     scope: cdk.Construct,
@@ -94,22 +93,19 @@ export class LocalEthChain extends cdk.Construct implements IChain {
     this.chainId = 1;
     this.vpc = props.vpc ?? new ec2.Vpc(this, "VPC");
 
-    this.cluster = new ecs.Cluster(this, "Cluster", {
-      vpc: this.vpc,
-    });
-
-    this.service = new ecsPatterns.ApplicationLoadBalancedFargateService(
+    this.service = new ecsPatterns.NetworkLoadBalancedFargateService(
       this,
       "Service",
       {
-        cluster: this.cluster,
+        vpc: this.vpc,
         taskImageOptions: {
           image: ecs.ContainerImage.fromRegistry("trufflesuite/ganache-cli"),
+          containerPort: 8545,
         },
         listenerPort: 8545,
       }
     );
 
-    this.rpcUrl = this.service.loadBalancer.loadBalancerDnsName;
+    this.rpcUrl = `https://${this.service.loadBalancer.loadBalancerDnsName}`;
   }
 }

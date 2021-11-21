@@ -167,16 +167,6 @@ public readonly chainName: string;
 
 ---
 
-##### `cluster`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.cluster"></a>
-
-```typescript
-public readonly cluster: Cluster;
-```
-
-- *Type:* [`@aws-cdk/aws-ecs.Cluster`](#@aws-cdk/aws-ecs.Cluster)
-
----
-
 ##### `kind`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.kind"></a>
 
 ```typescript
@@ -190,10 +180,10 @@ public readonly kind: string;
 ##### `service`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.service"></a>
 
 ```typescript
-public readonly service: ApplicationLoadBalancedFargateService;
+public readonly service: NetworkLoadBalancedFargateService;
 ```
 
-- *Type:* [`@aws-cdk/aws-ecs-patterns.ApplicationLoadBalancedFargateService`](#@aws-cdk/aws-ecs-patterns.ApplicationLoadBalancedFargateService)
+- *Type:* [`@aws-cdk/aws-ecs-patterns.NetworkLoadBalancedFargateService`](#@aws-cdk/aws-ecs-patterns.NetworkLoadBalancedFargateService)
 
 ---
 

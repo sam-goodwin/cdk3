@@ -82,10 +82,10 @@ export async function callbackToCloudFormation(
  * @param name name of the property to get
  */
 export function getString(
-  properties: CloudFormationCustomResourceEventCommon["ResourceProperties"],
+  event: CloudFormationCustomResourceEventCommon,
   name: string
 ): string {
-  const prop = getStringOrUndefined(properties, name);
+  const prop = getStringOrUndefined(event, name);
   if (prop === undefined) {
     throw new Error(
       `expected a string resource property, '${name}', but got '${prop}'`
@@ -95,10 +95,10 @@ export function getString(
 }
 
 export function getStringOrUndefined(
-  properties: CloudFormationCustomResourceEventCommon["ResourceProperties"],
+  event: CloudFormationCustomResourceEventCommon,
   name: string
 ): string {
-  const prop = properties[name];
+  const prop = event.ResourceProperties[name];
   if (prop === undefined || typeof prop === "string") {
     return prop;
   }
@@ -108,21 +108,21 @@ export function getStringOrUndefined(
 }
 
 export function getNumberOrUndefined(
-  properties: CloudFormationCustomResourceEventCommon["ResourceProperties"],
+  event: CloudFormationCustomResourceEventCommon,
   name: string
 ): number | undefined {
-  if (name in properties) {
-    return getNumber(properties, name);
+  if (name in event.ResourceProperties) {
+    return getNumber(event, name);
   } else {
     return undefined;
   }
 }
 
 export function getNumber(
-  properties: CloudFormationCustomResourceEventCommon["ResourceProperties"],
+  event: CloudFormationCustomResourceEventCommon,
   name: string
 ): number {
-  const prop = properties[name];
+  const prop = event.ResourceProperties[name];
   if (typeof prop === "number") {
     return prop;
   } else if (typeof prop === "string") {
