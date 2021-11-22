@@ -1,12 +1,9 @@
 import type { CloudFormationCustomResourceEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
 import Wallet from "ethereumjs-wallet";
+import { callbackToCloudFormation } from "./cfn-callback";
 
-import {
-  callbackToCloudFormation,
-  getString,
-  getStringOrUndefined,
-} from "./cfn-util";
+import { getString, getStringOrUndefined } from "./cfn-properties";
 import { Property } from "./properties";
 
 const secrets = new AWS.SecretsManager();

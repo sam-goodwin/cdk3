@@ -64,7 +64,7 @@ export function compile(
  * Compiles a Solidity Contract with a node-module resolver for imports.
  */
 export function compileContract(contractFile: string): CompileResponse {
-  return solc.compile(
+  return compile(
     {
       language: "Solidity",
       sources: {

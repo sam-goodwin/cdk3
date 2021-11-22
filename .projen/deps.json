@@ -127,6 +127,10 @@
       "type": "build"
     },
     {
+      "name": "ganache-core",
+      "type": "build"
+    },
+    {
       "name": "jest",
       "type": "build"
     },
@@ -210,6 +214,10 @@
       "type": "bundled"
     },
     {
+      "name": "web3",
+      "type": "bundled"
+    },
+    {
       "name": "@aws-cdk/aws-ec2",
       "type": "peer"
     },
@@ -284,6 +292,10 @@
     },
     {
       "name": "solc",
+      "type": "runtime"
+    },
+    {
+      "name": "web3",
       "type": "runtime"
     }
   ],

@@ -3,13 +3,14 @@ import * as AWS from "aws-sdk";
 
 import Wallet from "ethereumjs-wallet";
 import * as ethers from "ethers";
+import { callbackToCloudFormation } from "./cfn-callback";
 import {
-  callbackToCloudFormation,
   getNumberOrUndefined,
   getString,
   getStringOrUndefined,
-} from "./cfn-util";
+} from "./cfn-properties";
 import { Property } from "./properties";
+import { getProvider } from "./provider";
 
 const s3 = new AWS.S3();
 const secrets = new AWS.SecretsManager();
@@ -73,16 +74,7 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
       "password"
     );
 
-    const provider = ethers.providers.getDefaultProvider(
-      ethers.providers.getNetwork(
-        rpcURL
-          ? rpcURL
-          : {
-              chainId: chainId!,
-              name: chainName!,
-            }
-      )
-    );
+    const provider = getProvider(rpcURL);
     const walletSigner = new ethers.Wallet(
       decryptedWallet.getPrivateKeyString(),
       provider
@@ -95,7 +87,7 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
         walletSigner
       );
 
-      const contract = await contractFactory.deploy(...args);
+      const contract = await contractFactory.deploy(...(args ?? []));
 
       await callbackToCloudFormation(event, {
         Status: "SUCCESS",

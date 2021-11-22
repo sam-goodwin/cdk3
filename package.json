@@ -64,6 +64,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "ethers": "^5.5.1",
     "ganache-cli": "^6.12.2",
+    "ganache-core": "^2.13.2",
     "jest": "^27.3.1",
     "jest-junit": "^12",
     "jsii": "^1.43.0",
@@ -100,7 +101,8 @@
     "ethereumjs-wallet": "^1.0.2",
     "ethers": "^5.5.1",
     "resolve": "^1.20.0",
-    "solc": "^0.8.10"
+    "solc": "^0.8.10",
+    "web3": "^1.6.1"
   },
   "bundledDependencies": [
     "@types/aws-lambda",
@@ -108,7 +110,8 @@
     "ethereumjs-wallet",
     "ethers",
     "resolve",
-    "solc"
+    "solc",
+    "web3"
   ],
   "keywords": [
     "cdk"

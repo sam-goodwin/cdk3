@@ -31,6 +31,7 @@ const project = new AwsCdkConstructLibrary({
     "ethers",
     "resolve",
     "solc",
+    "web3",
   ],
   deps: [
     "@types/aws-lambda",
@@ -39,6 +40,7 @@ const project = new AwsCdkConstructLibrary({
     "ethers",
     "resolve",
     "solc",
+    "web3",
   ],
   devDeps: [
     "@aws-cdk/aws-ec2@1.132.0",
@@ -58,6 +60,7 @@ const project = new AwsCdkConstructLibrary({
     "esbuild",
     "ethers",
     "ganache-cli",
+    "ganache-core",
     "ts-node",
   ],
   peerDeps: [

@@ -3,78 +3,63 @@
 import "jest";
 import path from "path";
 
-const ganache = require("ganache-cli");
+import { compileContract } from "../src/solc";
+import { Property } from "../src/properties";
 
-const testWallet = require("ethereumjs-wallet").default.generate();
+import { wallets, provider } from "./test-env";
 
-import * as eth from "ethers";
-
-const provider = new eth.providers.Web3Provider(ganache.provider());
-
-const S3 = {
+const mockS3 = {
   getObject: jest.fn(),
 };
 
-const SecretsManager = {
+const mockSecretsManager = {
   getSecretValue: jest.fn(),
 };
 
-const Wallet = {
-  fromV3: jest.fn(),
+const mockCallback = {
+  callbackToCloudFormation: jest.fn(() => Promise.resolve({})),
 };
 
-const ethers = {
-  providers: {
-    getDefaultProvider: jest.fn(() => provider),
-    getNetwork: jest.fn(),
+jest.mock("aws-sdk", () => ({
+  S3: class {
+    getObject = mockS3.getObject;
   },
-  ContractFactory: {
-    fromSolidity: jest.fn(),
+  SecretsManager: class {
+    getSecretValue = mockSecretsManager.getSecretValue;
   },
-  Wallet: require("ethers").Wallet,
-};
+}));
+jest.mock("../src/provider", () => ({
+  getProvider: jest.fn(() => provider),
+}));
+jest.mock("../src/cfn-callback", () => mockCallback);
+jest.setTimeout(60000);
 
-import { compileContract } from "../src/solc";
-
-import { Property } from "../src/properties";
-
-test("CREATE should deploy contract to testnet", async () => {
-  jest.mock("ethereumjs-wallet", () => Wallet);
-  jest.mock("ethers", () => ethers);
-  jest.mock("aws-sdk", () => ({
-    S3: class {
-      getObject = S3.getObject;
-    },
-    SecretsManager: class {
-      getSecretValue = SecretsManager.getSecretValue;
-    },
-  }));
-
+async function setupMocks() {
   const { handle } = require("../src/contract-deployer");
 
+  const compileRes = compileContract(
+    path.join(__dirname, "..", "contracts", "my-erc20.sol")
+  );
   const S3Object = {
-    Body: JSON.stringify(
-      compileContract(path.join(__dirname, "..", "contracts", "my-erc20.sol"))
-    ),
-  };
-  const SecretValue = {
-    SecretString: "WalletSecret",
+    Body: compileRes.contracts["my-erc20.sol"].HelloWorld,
   };
 
-  S3.getObject.mockReturnValueOnce({
+  mockS3.getObject.mockReturnValueOnce({
     promise: () => Promise.resolve(S3Object),
   });
 
-  SecretsManager.getSecretValue.mockReturnValueOnce({
+  const SecretValue = {
+    SecretString: await wallets[0].toV3String("password"),
+  };
+  mockSecretsManager.getSecretValue.mockReturnValueOnce({
     promise: () => Promise.resolve(SecretValue),
   });
 
-  Wallet.fromV3.mockReturnValueOnce(testWallet);
+  return { handle, S3: mockS3, SecretsManager: mockSecretsManager };
+}
 
-  ethers.providers.getDefaultProvider.mockReturnValueOnce(
-    require("ganache-cli").provider()
-  );
-  ethers.providers.getNetwork.mockReturnValueOnce({});
+test("CREATE should deploy contract to testnet", async () => {
+  const { handle, S3, SecretsManager } = await setupMocks();
 
   const ResourceProperties = {
     ServiceToken: "ServiceToken",
@@ -105,9 +90,5 @@ test("CREATE should deploy contract to testnet", async () => {
     {
       SecretId: ResourceProperties.WalletSecretArn,
     },
-  ]);
-  expect(Wallet.fromV3.mock.calls[0]).toEqual([
-    SecretValue.SecretString,
-    "password",
   ]);
 });
