@@ -3,18 +3,6 @@
 exports[`Contract should compile Solidity Contract 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fArtifactHashF1B4A2FB": Object {
-      "Description": "Artifact hash for asset \\"1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8f\\"",
-      "Type": "String",
-    },
-    "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fS3BucketBD7C0E9C": Object {
-      "Description": "S3 bucket for asset \\"1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8f\\"",
-      "Type": "String",
-    },
-    "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fS3VersionKey58EC66BF": Object {
-      "Description": "S3 key for asset version \\"1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8f\\"",
-      "Type": "String",
-    },
     "AssetParameters3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0dArtifactHash7A88F98A": Object {
       "Description": "Artifact hash for asset \\"3a9bc48b77e4f214689b6d120034c8f3ff8a764853fffe07d7f458d895f3bd0d\\"",
       "Type": "String",
@@ -37,6 +25,18 @@ Object {
     },
     "AssetParameters8a47457348a1cadc002d3a757a74d8487d7c254569bf4db058ff38e5d6287fd6S3VersionKeyA9FED76A": Object {
       "Description": "S3 key for asset version \\"8a47457348a1cadc002d3a757a74d8487d7c254569bf4db058ff38e5d6287fd6\\"",
+      "Type": "String",
+    },
+    "AssetParameterse4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffceArtifactHashE89D60AC": Object {
+      "Description": "Artifact hash for asset \\"e4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffce\\"",
+      "Type": "String",
+    },
+    "AssetParameterse4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffceS3Bucket8EB19D6B": Object {
+      "Description": "S3 bucket for asset \\"e4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffce\\"",
+      "Type": "String",
+    },
+    "AssetParameterse4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffceS3VersionKeyD3DFDA62": Object {
+      "Description": "S3 key for asset version \\"e4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffce\\"",
       "Type": "String",
     },
   },
@@ -674,7 +674,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fS3BucketBD7C0E9C",
+            "Ref": "AssetParameterse4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffceS3Bucket8EB19D6B",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -687,7 +687,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fS3VersionKey58EC66BF",
+                          "Ref": "AssetParameterse4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffceS3VersionKeyD3DFDA62",
                         },
                       ],
                     },
@@ -700,7 +700,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fS3VersionKey58EC66BF",
+                          "Ref": "AssetParameterse4f244e09eda4182ba88499a9ce3b977244084e2aaf6082bc92c788742d7ffceS3VersionKeyD3DFDA62",
                         },
                       ],
                     },
