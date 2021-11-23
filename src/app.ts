@@ -15,12 +15,12 @@ const stack = new cdk.Stack(app, "test-cdk3-10", {
 
 const wallet = new cdk3.Wallet(stack, "Wallet");
 
-const testnet = new cdk3.LocalEthChain(stack, "Testnet");
+const testnet = new cdk3.TestChain(stack, "Testnet");
 
-// console.log([wallet, testnet, path].length);
+console.log([wallet, testnet, path].length);
 
-new cdk3.Contract(stack, "HelloWorld", {
-  owner: wallet,
-  contractFile: path.join(__dirname, "..", "contracts", "my-erc20.sol"),
-  chain: testnet,
-});
+// new cdk3.Contract(stack, "HelloWorld", {
+//   owner: wallet,
+//   contractFile: path.join(__dirname, "..", "contracts", "my-erc20.sol"),
+//   chain: testnet,
+// });

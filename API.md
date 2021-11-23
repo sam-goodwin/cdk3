@@ -111,33 +111,33 @@ This will only differ from address if an ENS name was used in the constructor
 ---
 
 
-### LocalEthChain <a name="cdk3.LocalEthChain"></a>
+### TestChain <a name="cdk3.TestChain"></a>
 
 - *Implements:* [`cdk3.IChain`](#cdk3.IChain)
 
 Creates a local Ethereum chain hosted on an ECS Fargate cluster.
 
-#### Initializers <a name="cdk3.LocalEthChain.Initializer"></a>
+#### Initializers <a name="cdk3.TestChain.Initializer"></a>
 
 ```typescript
-import { LocalEthChain } from 'cdk3'
+import { TestChain } from 'cdk3'
 
-new LocalEthChain(scope: Construct, id: string, props?: LocalEthChainProps)
+new TestChain(scope: Construct, id: string, props?: LocalEthChainProps)
 ```
 
-##### `scope`<sup>Required</sup> <a name="cdk3.LocalEthChain.parameter.scope"></a>
+##### `scope`<sup>Required</sup> <a name="cdk3.TestChain.parameter.scope"></a>
 
 - *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
 
 ---
 
-##### `id`<sup>Required</sup> <a name="cdk3.LocalEthChain.parameter.id"></a>
+##### `id`<sup>Required</sup> <a name="cdk3.TestChain.parameter.id"></a>
 
 - *Type:* `string`
 
 ---
 
-##### `props`<sup>Optional</sup> <a name="cdk3.LocalEthChain.parameter.props"></a>
+##### `props`<sup>Optional</sup> <a name="cdk3.TestChain.parameter.props"></a>
 
 - *Type:* [`cdk3.LocalEthChainProps`](#cdk3.LocalEthChainProps)
 
@@ -147,7 +147,7 @@ new LocalEthChain(scope: Construct, id: string, props?: LocalEthChainProps)
 
 #### Properties <a name="Properties"></a>
 
-##### `chainId`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.chainId"></a>
+##### `chainId`<sup>Required</sup> <a name="cdk3.TestChain.property.chainId"></a>
 
 ```typescript
 public readonly chainId: number;
@@ -157,7 +157,7 @@ public readonly chainId: number;
 
 ---
 
-##### `chainName`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.chainName"></a>
+##### `chainName`<sup>Required</sup> <a name="cdk3.TestChain.property.chainName"></a>
 
 ```typescript
 public readonly chainName: string;
@@ -167,7 +167,17 @@ public readonly chainName: string;
 
 ---
 
-##### `kind`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.kind"></a>
+##### `cluster`<sup>Required</sup> <a name="cdk3.TestChain.property.cluster"></a>
+
+```typescript
+public readonly cluster: Cluster;
+```
+
+- *Type:* [`@aws-cdk/aws-ecs.Cluster`](#@aws-cdk/aws-ecs.Cluster)
+
+---
+
+##### `kind`<sup>Required</sup> <a name="cdk3.TestChain.property.kind"></a>
 
 ```typescript
 public readonly kind: string;
@@ -177,17 +187,37 @@ public readonly kind: string;
 
 ---
 
-##### `service`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.service"></a>
+##### `loadBalancer`<sup>Required</sup> <a name="cdk3.TestChain.property.loadBalancer"></a>
 
 ```typescript
-public readonly service: NetworkLoadBalancedFargateService;
+public readonly loadBalancer: NetworkLoadBalancer;
 ```
 
-- *Type:* [`@aws-cdk/aws-ecs-patterns.NetworkLoadBalancedFargateService`](#@aws-cdk/aws-ecs-patterns.NetworkLoadBalancedFargateService)
+- *Type:* [`@aws-cdk/aws-elasticloadbalancingv2.NetworkLoadBalancer`](#@aws-cdk/aws-elasticloadbalancingv2.NetworkLoadBalancer)
 
 ---
 
-##### `vpc`<sup>Required</sup> <a name="cdk3.LocalEthChain.property.vpc"></a>
+##### `service`<sup>Required</sup> <a name="cdk3.TestChain.property.service"></a>
+
+```typescript
+public readonly service: FargateService;
+```
+
+- *Type:* [`@aws-cdk/aws-ecs.FargateService`](#@aws-cdk/aws-ecs.FargateService)
+
+---
+
+##### `task`<sup>Required</sup> <a name="cdk3.TestChain.property.task"></a>
+
+```typescript
+public readonly task: TaskDefinition;
+```
+
+- *Type:* [`@aws-cdk/aws-ecs.TaskDefinition`](#@aws-cdk/aws-ecs.TaskDefinition)
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="cdk3.TestChain.property.vpc"></a>
 
 ```typescript
 public readonly vpc: Vpc;
@@ -197,7 +227,7 @@ public readonly vpc: Vpc;
 
 ---
 
-##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.LocalEthChain.property.rpcUrl"></a>
+##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.TestChain.property.rpcUrl"></a>
 
 ```typescript
 public readonly rpcUrl: string;
@@ -648,7 +678,7 @@ public readonly rpcUrl: string;
 
 ### IChain <a name="cdk3.IChain"></a>
 
-- *Implemented By:* [`cdk3.Chain`](#cdk3.Chain), [`cdk3.LocalEthChain`](#cdk3.LocalEthChain), [`cdk3.IChain`](#cdk3.IChain)
+- *Implemented By:* [`cdk3.Chain`](#cdk3.Chain), [`cdk3.TestChain`](#cdk3.TestChain), [`cdk3.IChain`](#cdk3.IChain)
 
 
 #### Properties <a name="Properties"></a>

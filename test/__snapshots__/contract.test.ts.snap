@@ -2,16 +2,6 @@
 
 exports[`Contract should compile Solidity Contract 1`] = `
 Object {
-  "Outputs": Object {
-    "ChainServiceLoadBalancerDNSA8B8DD71": Object {
-      "Value": Object {
-        "Fn::GetAtt": Array [
-          "ChainServiceLB40E7649D",
-          "DNSName",
-        ],
-      },
-    },
-  },
   "Parameters": Object {
     "AssetParameters1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8fArtifactHashF1B4A2FB": Object {
       "Description": "Artifact hash for asset \\"1275445d1635b2e704918b7e9038061dd6246c26c4f37a012d55431159a9be8f\\"",
@@ -51,29 +41,134 @@ Object {
     },
   },
   "Resources": Object {
-    "ChainServiceED2172CA": Object {
+    "ChainCluster46039767": Object {
+      "Type": "AWS::ECS::Cluster",
+    },
+    "ChainLoadBalancer73DB9715": Object {
+      "Properties": Object {
+        "LoadBalancerAttributes": Array [
+          Object {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
+        "Scheme": "internal",
+        "Subnets": Array [
+          Object {
+            "Ref": "ChainVPCPrivateSubnet1Subnet6ED624CD",
+          },
+          Object {
+            "Ref": "ChainVPCPrivateSubnet2Subnet60922772",
+          },
+        ],
+        "Type": "network",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    },
+    "ChainLoadBalancerNodeListenerE8956050": Object {
+      "Properties": Object {
+        "DefaultActions": Array [
+          Object {
+            "TargetGroupArn": Object {
+              "Ref": "ChainLoadBalancerNodeListenerECSGroup511DA7FD",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": Object {
+          "Ref": "ChainLoadBalancer73DB9715",
+        },
+        "Port": 8545,
+        "Protocol": "TCP",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "ChainLoadBalancerNodeListenerECSGroup511DA7FD": Object {
+      "Properties": Object {
+        "Port": 8545,
+        "Protocol": "TCP",
+        "TargetType": "ip",
+        "VpcId": Object {
+          "Ref": "ChainVPC8A02D304",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "ChainNode9D20C92C": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Command": Array [
+              "-m",
+              "\\"indoor dish desk flag debris potato excuse depart ticket judge file exit\\"",
+            ],
+            "Essential": true,
+            "Image": "trufflesuite/ganache-cli",
+            "Name": "Ganache",
+            "PortMappings": Array [
+              Object {
+                "ContainerPort": 8545,
+                "HostPort": 8545,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "Cpu": "256",
+        "Family": "TestChainNode8A439E2F",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": Array [
+          "FARGATE",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "ChainNodeTaskRoleD83E9270",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "ChainNodeTaskRoleD83E9270": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ChainService3DE7863D": Object {
       "DependsOn": Array [
-        "ChainServiceLBPublicListenerECSGroup5C15B602",
-        "ChainServiceLBPublicListener93A2B14F",
+        "ChainLoadBalancerNodeListenerECSGroup511DA7FD",
+        "ChainLoadBalancerNodeListenerE8956050",
       ],
       "Properties": Object {
         "Cluster": Object {
-          "Ref": "EcsDefaultClusterMnL3mNNYNVPC9C1EC7A3",
+          "Ref": "ChainCluster46039767",
         },
         "DeploymentConfiguration": Object {
           "MaximumPercent": 200,
           "MinimumHealthyPercent": 50,
         },
-        "DesiredCount": 1,
         "EnableECSManagedTags": false,
         "HealthCheckGracePeriodSeconds": 60,
         "LaunchType": "FARGATE",
         "LoadBalancers": Array [
           Object {
-            "ContainerName": "web",
+            "ContainerName": "Ganache",
             "ContainerPort": 8545,
             "TargetGroupArn": Object {
-              "Ref": "ChainServiceLBPublicListenerECSGroup5C15B602",
+              "Ref": "ChainLoadBalancerNodeListenerECSGroup511DA7FD",
             },
           },
         ],
@@ -83,7 +178,7 @@ Object {
             "SecurityGroups": Array [
               Object {
                 "Fn::GetAtt": Array [
-                  "ChainServiceSecurityGroup296F6B9A",
+                  "ChainServiceSecurityGroupC2B4B00F",
                   "GroupId",
                 ],
               },
@@ -99,68 +194,14 @@ Object {
           },
         },
         "TaskDefinition": Object {
-          "Ref": "ChainServiceTaskDef04312CD5",
+          "Ref": "ChainNode9D20C92C",
         },
       },
       "Type": "AWS::ECS::Service",
     },
-    "ChainServiceLB40E7649D": Object {
-      "DependsOn": Array [
-        "ChainVPCPublicSubnet1DefaultRoute541094E9",
-        "ChainVPCPublicSubnet2DefaultRouteD0EC39C0",
-      ],
+    "ChainServiceSecurityGroupC2B4B00F": Object {
       "Properties": Object {
-        "LoadBalancerAttributes": Array [
-          Object {
-            "Key": "deletion_protection.enabled",
-            "Value": "false",
-          },
-        ],
-        "Scheme": "internet-facing",
-        "Subnets": Array [
-          Object {
-            "Ref": "ChainVPCPublicSubnet1Subnet959FCBA5",
-          },
-          Object {
-            "Ref": "ChainVPCPublicSubnet2SubnetB7B65459",
-          },
-        ],
-        "Type": "network",
-      },
-      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
-    },
-    "ChainServiceLBPublicListener93A2B14F": Object {
-      "Properties": Object {
-        "DefaultActions": Array [
-          Object {
-            "TargetGroupArn": Object {
-              "Ref": "ChainServiceLBPublicListenerECSGroup5C15B602",
-            },
-            "Type": "forward",
-          },
-        ],
-        "LoadBalancerArn": Object {
-          "Ref": "ChainServiceLB40E7649D",
-        },
-        "Port": 8545,
-        "Protocol": "TCP",
-      },
-      "Type": "AWS::ElasticLoadBalancingV2::Listener",
-    },
-    "ChainServiceLBPublicListenerECSGroup5C15B602": Object {
-      "Properties": Object {
-        "Port": 80,
-        "Protocol": "TCP",
-        "TargetType": "ip",
-        "VpcId": Object {
-          "Ref": "ChainVPC8A02D304",
-        },
-      },
-      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
-    },
-    "ChainServiceSecurityGroup296F6B9A": Object {
-      "Properties": Object {
-        "GroupDescription": "Test/Chain/Service/Service/SecurityGroup",
+        "GroupDescription": "Test/Chain/Service/SecurityGroup",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -173,123 +214,6 @@ Object {
         },
       },
       "Type": "AWS::EC2::SecurityGroup",
-    },
-    "ChainServiceTaskDef04312CD5": Object {
-      "Properties": Object {
-        "ContainerDefinitions": Array [
-          Object {
-            "Essential": true,
-            "Image": "trufflesuite/ganache-cli",
-            "LogConfiguration": Object {
-              "LogDriver": "awslogs",
-              "Options": Object {
-                "awslogs-group": Object {
-                  "Ref": "ChainServiceTaskDefwebLogGroupEFA7FD66",
-                },
-                "awslogs-region": Object {
-                  "Ref": "AWS::Region",
-                },
-                "awslogs-stream-prefix": "Service",
-              },
-            },
-            "Name": "web",
-            "PortMappings": Array [
-              Object {
-                "ContainerPort": 8545,
-                "Protocol": "tcp",
-              },
-            ],
-          },
-        ],
-        "Cpu": "256",
-        "ExecutionRoleArn": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceTaskDefExecutionRole3B6095A4",
-            "Arn",
-          ],
-        },
-        "Family": "TestChainServiceTaskDef0F39B939",
-        "Memory": "512",
-        "NetworkMode": "awsvpc",
-        "RequiresCompatibilities": Array [
-          "FARGATE",
-        ],
-        "TaskRoleArn": Object {
-          "Fn::GetAtt": Array [
-            "ChainServiceTaskDefTaskRole61BEB074",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::ECS::TaskDefinition",
-    },
-    "ChainServiceTaskDefExecutionRole3B6095A4": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "ChainServiceTaskDefExecutionRoleDefaultPolicy8162C6BF": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "ChainServiceTaskDefwebLogGroupEFA7FD66",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "ChainServiceTaskDefExecutionRoleDefaultPolicy8162C6BF",
-        "Roles": Array [
-          Object {
-            "Ref": "ChainServiceTaskDefExecutionRole3B6095A4",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "ChainServiceTaskDefTaskRole61BEB074": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "ecs-tasks.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "ChainServiceTaskDefwebLogGroupEFA7FD66": Object {
-      "DeletionPolicy": "Retain",
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
     },
     "ChainVPC8A02D304": Object {
       "Properties": Object {
@@ -722,7 +646,7 @@ Object {
               "https://",
               Object {
                 "Fn::GetAtt": Array [
-                  "ChainServiceLB40E7649D",
+                  "ChainLoadBalancer73DB9715",
                   "DNSName",
                 ],
               },
@@ -911,9 +835,6 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Policy",
-    },
-    "EcsDefaultClusterMnL3mNNYNVPC9C1EC7A3": Object {
-      "Type": "AWS::ECS::Cluster",
     },
     "SingletonLambdaethereumwalletkeygenerator6D364F19": Object {
       "DependsOn": Array [

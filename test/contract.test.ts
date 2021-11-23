@@ -8,7 +8,7 @@ test(
   stackTest((stack) => {
     const owner = new cdk3.Wallet(stack, "Wallet");
 
-    const chain = new cdk3.LocalEthChain(stack, "Chain");
+    const chain = new cdk3.TestChain(stack, "Chain");
 
     new cdk3.Contract(stack, "Contract", {
       owner,

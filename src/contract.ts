@@ -4,7 +4,7 @@ import * as path from "path";
 import * as lambda from "@aws-cdk/aws-lambda";
 import { Asset } from "@aws-cdk/aws-s3-assets";
 import * as cdk from "@aws-cdk/core";
-import { isLocalEthChain } from ".";
+import { isTestChain } from ".";
 import { IChain } from "./chain";
 import { Property } from "./properties";
 import { compileContract } from "./solc";
@@ -110,7 +110,7 @@ export class Contract extends cdk.Construct {
       handler: "index.handle",
       memorySize: 512,
       timeout: cdk.Duration.minutes(1),
-      vpc: isLocalEthChain(props.chain) ? props.chain.vpc : undefined,
+      vpc: isTestChain(props.chain) ? props.chain.vpc : undefined,
     });
 
     this.owner.grantRead(deployFunction);
