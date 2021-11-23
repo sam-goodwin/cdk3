@@ -108,8 +108,9 @@ function bundle() {
   esbuild src/$name.ts --bundle --platform=node --outfile=lib/$name/index.js --external:aws-sdk
 }
 
-bundle wallet-keygen
-bundle contract-deployer`,
+bundle contract-deployer
+bundle test-chain-funding
+bundle wallet-keygen`,
   ],
 });
 

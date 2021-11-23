@@ -2,7 +2,6 @@ import type { CloudFormationCustomResourceEvent } from "aws-lambda";
 import * as AWS from "aws-sdk";
 import Wallet from "ethereumjs-wallet";
 import { callbackToCloudFormation } from "./cfn-callback";
-
 import { getString, getStringOrUndefined } from "./cfn-properties";
 import { Property } from "./properties";
 

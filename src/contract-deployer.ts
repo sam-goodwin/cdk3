@@ -9,6 +9,7 @@ import {
   getString,
   getStringOrUndefined,
 } from "./cfn-properties";
+import { logPromise } from "./log-util";
 import { Property } from "./properties";
 import { getProvider } from "./provider";
 
@@ -53,25 +54,31 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
     }
 
     const [contractObject, encryptedWallet] = await Promise.all([
-      s3
-        .getObject({
-          Bucket: bucketName,
-          Key: objectKey,
-        })
-        .promise(),
-      secrets
-        .getSecretValue({
-          SecretId: walletSecretArn,
-        })
-        .promise(),
+      logPromise(
+        `download 's3://${bucketName}/${objectKey}'`,
+        s3
+          .getObject({
+            Bucket: bucketName,
+            Key: objectKey,
+          })
+          .promise()
+      ),
+      logPromise(
+        `get secret value: '${walletSecretArn}'`,
+        secrets
+          .getSecretValue({
+            SecretId: walletSecretArn,
+          })
+          .promise()
+      ),
     ]);
 
     if (encryptedWallet.SecretString === undefined) {
       throw new Error(`failed to load wallet from '${walletSecretArn}'.`);
     }
-    const decryptedWallet = await Wallet.fromV3(
-      encryptedWallet.SecretString,
-      "password"
+    const decryptedWallet = await logPromise(
+      "decrypt wallet",
+      Wallet.fromV3(encryptedWallet.SecretString, "password")
     );
 
     const provider = getProvider(rpcURL);
@@ -89,27 +96,39 @@ export async function handle(event: CloudFormationCustomResourceEvent) {
 
       const contract = await contractFactory.deploy(...(args ?? []));
 
-      await callbackToCloudFormation(event, {
-        Status: "SUCCESS",
-        PhysicalResourceId: contract.address,
-        Data: {
-          [Property("Address")]: contract.address,
-          [Property("Hash")]: contract.deployTransaction.hash,
-          [Property("ResolvedAddress")]: await contract.resolvedAddress,
-        },
-      });
+      await logPromise(
+        "report Create SUCCESS",
+        callbackToCloudFormation(event, {
+          Status: "SUCCESS",
+          PhysicalResourceId: contract.address,
+          Data: {
+            [Property("Address")]: contract.address,
+            [Property("Hash")]: contract.deployTransaction.hash,
+            [Property("ResolvedAddress")]: await contract.resolvedAddress,
+          },
+        })
+      );
     } else {
-      await callbackToCloudFormation(event, {
-        Status: "SUCCESS",
-        PhysicalResourceId: event.PhysicalResourceId,
-      });
+      await logPromise(
+        `report ${event.RequestType} SUCCESS`,
+        callbackToCloudFormation(event, {
+          Status: "SUCCESS",
+          PhysicalResourceId: event.PhysicalResourceId,
+        })
+      );
     }
   } catch (err) {
-    await callbackToCloudFormation(event, {
-      Status: "FAILED",
-      PhysicalResourceId:
-        event.RequestType === "Create" ? "" : event.PhysicalResourceId,
-      Reason: (err as any).message,
-    });
+    console.error(err);
+    await logPromise(
+      `report ${event.RequestType} FAILED`,
+      callbackToCloudFormation(event, {
+        Status: "FAILED",
+        PhysicalResourceId:
+          event.RequestType === "Create"
+            ? "failed_contract" // stub physical id for a failed contract creation
+            : event.PhysicalResourceId,
+        Reason: (err as any).message,
+      })
+    );
   }
 }

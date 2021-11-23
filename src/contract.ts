@@ -4,10 +4,10 @@ import * as path from "path";
 import * as lambda from "@aws-cdk/aws-lambda";
 import { Asset } from "@aws-cdk/aws-s3-assets";
 import * as cdk from "@aws-cdk/core";
-import { isTestChain } from ".";
 import { IChain } from "./chain";
 import { Property } from "./properties";
 import { compileContract } from "./solc";
+import { isTestChain } from "./test-chain";
 import { Wallet } from "./wallet";
 
 export interface ContractProps {
@@ -20,6 +20,11 @@ export interface ContractProps {
    * Name of the Contract `.sol` file to compile.
    */
   readonly contractFile: string;
+
+  /**
+   * Name of the Contract to deploy.
+   */
+  readonly contractName: string;
 
   /**
    * Argument values to pass to the Contract's constructor.
@@ -90,13 +95,22 @@ export class Contract extends cdk.Construct {
 
     // compile the contract and write it to cdk3.out/(node address)
     const compiled = compileContract(props.contractFile);
+    const compiledContract =
+      compiled.contracts[path.basename(props.contractFile)]?.[
+        props.contractName
+      ];
+    if (compiledContract === undefined) {
+      throw new Error(
+        `could not find contract '${props.contractName}' in file '${props.contractFile}'`
+      );
+    }
     const assetPath = `${path.join(
       process.cwd(),
       "cdk3.out",
       this.node.addr
     )}.json`;
     fs.mkdirSync(path.join(process.cwd(), "cdk3.out"), { recursive: true });
-    fs.writeFileSync(assetPath, JSON.stringify(compiled, null, 2));
+    fs.writeFileSync(assetPath, JSON.stringify(compiledContract, null, 2));
 
     this.asset = new Asset(this, "CompiledContract", {
       path: assetPath,
@@ -114,6 +128,7 @@ export class Contract extends cdk.Construct {
     });
 
     this.owner.grantRead(deployFunction);
+    this.asset.grantRead(deployFunction);
 
     const contractResource = new cdk.CustomResource(this, "Contract", {
       serviceToken: deployFunction.functionArn,

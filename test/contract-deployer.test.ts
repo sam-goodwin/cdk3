@@ -6,7 +6,9 @@ import path from "path";
 import { compileContract } from "../src/solc";
 import { Property } from "../src/properties";
 
-import { wallets, provider } from "./test-env";
+import { wallets } from "./test-env";
+
+import "./mock-provider";
 
 const mockS3 = {
   getObject: jest.fn(),
@@ -28,9 +30,7 @@ jest.mock("aws-sdk", () => ({
     getSecretValue = mockSecretsManager.getSecretValue;
   },
 }));
-jest.mock("../src/provider", () => ({
-  getProvider: jest.fn(() => provider),
-}));
+
 jest.mock("../src/cfn-callback", () => mockCallback);
 jest.setTimeout(60000);
 

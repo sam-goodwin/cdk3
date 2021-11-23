@@ -122,7 +122,7 @@ Creates a local Ethereum chain hosted on an ECS Fargate cluster.
 ```typescript
 import { TestChain } from 'cdk3'
 
-new TestChain(scope: Construct, id: string, props?: LocalEthChainProps)
+new TestChain(scope: Construct, id: string, props?: TestChainProps)
 ```
 
 ##### `scope`<sup>Required</sup> <a name="cdk3.TestChain.parameter.scope"></a>
@@ -139,7 +139,7 @@ new TestChain(scope: Construct, id: string, props?: LocalEthChainProps)
 
 ##### `props`<sup>Optional</sup> <a name="cdk3.TestChain.parameter.props"></a>
 
-- *Type:* [`cdk3.LocalEthChainProps`](#cdk3.LocalEthChainProps)
+- *Type:* [`cdk3.TestChainProps`](#cdk3.TestChainProps)
 
 ---
 
@@ -155,6 +155,8 @@ public readonly chainId: number;
 
 - *Type:* `number`
 
+Numerical ID of the TestChain - currently hard-coded as `1`.
+
 ---
 
 ##### `chainName`<sup>Required</sup> <a name="cdk3.TestChain.property.chainName"></a>
@@ -164,6 +166,8 @@ public readonly chainName: string;
 ```
 
 - *Type:* `string`
+
+Name of the TestChain - currently hard-coded as `"Ethereum"`.
 
 ---
 
@@ -175,6 +179,8 @@ public readonly cluster: Cluster;
 
 - *Type:* [`@aws-cdk/aws-ecs.Cluster`](#@aws-cdk/aws-ecs.Cluster)
 
+ECS Cluster hosting the TestChain's containers.
+
 ---
 
 ##### `kind`<sup>Required</sup> <a name="cdk3.TestChain.property.kind"></a>
@@ -184,6 +190,8 @@ public readonly kind: string;
 ```
 
 - *Type:* `string`
+
+Type discriminant for distinguishing the TestChain from a live chain.
 
 ---
 
@@ -195,6 +203,8 @@ public readonly loadBalancer: NetworkLoadBalancer;
 
 - *Type:* [`@aws-cdk/aws-elasticloadbalancingv2.NetworkLoadBalancer`](#@aws-cdk/aws-elasticloadbalancingv2.NetworkLoadBalancer)
 
+Load Balancer for connecting with the TestChain node.
+
 ---
 
 ##### `service`<sup>Required</sup> <a name="cdk3.TestChain.property.service"></a>
@@ -204,6 +214,8 @@ public readonly service: FargateService;
 ```
 
 - *Type:* [`@aws-cdk/aws-ecs.FargateService`](#@aws-cdk/aws-ecs.FargateService)
+
+FargateService running the TestChain nodes.
 
 ---
 
@@ -215,6 +227,10 @@ public readonly task: TaskDefinition;
 
 - *Type:* [`@aws-cdk/aws-ecs.TaskDefinition`](#@aws-cdk/aws-ecs.TaskDefinition)
 
+ECS Task Definition for the TestChain node.
+
+This task runs the `ganache-cli` underneath.
+
 ---
 
 ##### `vpc`<sup>Required</sup> <a name="cdk3.TestChain.property.vpc"></a>
@@ -225,6 +241,8 @@ public readonly vpc: Vpc;
 
 - *Type:* [`@aws-cdk/aws-ec2.Vpc`](#@aws-cdk/aws-ec2.Vpc)
 
+VPC containing the service's ECS Cluster.
+
 ---
 
 ##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.TestChain.property.rpcUrl"></a>
@@ -234,6 +252,10 @@ public readonly rpcUrl: string;
 ```
 
 - *Type:* `string`
+
+HTTPS URL for connecting to the TestChain.
+
+It is derived from the Network Load Balancer.
 
 ---
 
@@ -429,6 +451,18 @@ Name of the Contract `.sol` file to compile.
 
 ---
 
+##### `contractName`<sup>Required</sup> <a name="cdk3.ContractProps.property.contractName"></a>
+
+```typescript
+public readonly contractName: string;
+```
+
+- *Type:* `string`
+
+Name of the Contract to deploy.
+
+---
+
 ##### `owner`<sup>Required</sup> <a name="cdk3.ContractProps.property.owner"></a>
 
 ```typescript
@@ -485,17 +519,77 @@ Specify paths containing external code required by the compiler.
 
 ---
 
-### LocalEthChainProps <a name="cdk3.LocalEthChainProps"></a>
+### TestChainFund <a name="cdk3.TestChainFund"></a>
+
+Struct for configuring a transfer of test funds to a Wallet.
 
 #### Initializer <a name="[object Object].Initializer"></a>
 
 ```typescript
-import { LocalEthChainProps } from 'cdk3'
+import { TestChainFund } from 'cdk3'
 
-const localEthChainProps: LocalEthChainProps = { ... }
+const testChainFund: TestChainFund = { ... }
 ```
 
-##### `vpc`<sup>Optional</sup> <a name="cdk3.LocalEthChainProps.property.vpc"></a>
+##### `amount`<sup>Required</sup> <a name="cdk3.TestChainFund.property.amount"></a>
+
+```typescript
+public readonly amount: number;
+```
+
+- *Type:* `number`
+
+Amount of ETH to transfer to the Wallet.
+
+---
+
+##### `from`<sup>Required</sup> <a name="cdk3.TestChainFund.property.from"></a>
+
+```typescript
+public readonly from: number | string;
+```
+
+- *Type:* `number` | `string`
+
+Which test wallet to transfer funds from.
+
+---
+
+##### `to`<sup>Required</sup> <a name="cdk3.TestChainFund.property.to"></a>
+
+```typescript
+public readonly to: Wallet;
+```
+
+- *Type:* [`cdk3.Wallet`](#cdk3.Wallet)
+
+Wallet to transfer funds to.
+
+---
+
+### TestChainProps <a name="cdk3.TestChainProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { TestChainProps } from 'cdk3'
+
+const testChainProps: TestChainProps = { ... }
+```
+
+##### `fund`<sup>Optional</sup> <a name="cdk3.TestChainProps.property.fund"></a>
+
+```typescript
+public readonly fund: TestChainFund;
+```
+
+- *Type:* [`cdk3.TestChainFund`](#cdk3.TestChainFund)
+
+Configure a transfer of funds from a test wallet to a Wallet Construct.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="cdk3.TestChainProps.property.vpc"></a>
 
 ```typescript
 public readonly vpc: Vpc;
@@ -680,6 +774,8 @@ public readonly rpcUrl: string;
 
 - *Implemented By:* [`cdk3.Chain`](#cdk3.Chain), [`cdk3.TestChain`](#cdk3.TestChain), [`cdk3.IChain`](#cdk3.IChain)
 
+A Blockchain connection.
+
 
 #### Properties <a name="Properties"></a>
 
@@ -691,6 +787,8 @@ public readonly chainId: number;
 
 - *Type:* `number`
 
+Numerical ID of the Blockchain.
+
 ---
 
 ##### `chainName`<sup>Required</sup> <a name="cdk3.IChain.property.chainName"></a>
@@ -701,6 +799,8 @@ public readonly chainName: string;
 
 - *Type:* `string`
 
+Name of the Blockchain.
+
 ---
 
 ##### `rpcUrl`<sup>Optional</sup> <a name="cdk3.IChain.property.rpcUrl"></a>
@@ -710,6 +810,8 @@ public readonly rpcUrl: string;
 ```
 
 - *Type:* `string`
+
+RPC URL for interacting with this Blockchain.
 
 ---
 

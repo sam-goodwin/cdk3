@@ -12,8 +12,9 @@ test(
 
     new cdk3.Contract(stack, "Contract", {
       owner,
-      contractFile: path.join(__dirname, "..", "contracts", "my-erc20.sol"),
       chain,
+      contractFile: path.join(__dirname, "..", "contracts", "my-erc20.sol"),
+      contractName: "HelloWorld",
     });
   })
 );
